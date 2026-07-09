@@ -9,13 +9,16 @@ import PricingSection from './components/Pricingsection'
 import TestimonialsSection from './components/Testimonialsection'
 import ContactSection from './components/Contactsection'
 import FooterSection from './components/Footersection'
+import BlindsReveal from './components/BlindsReveal'
 
 function App() {
   return (
     <>
       <Navbar />
       <HeroSection />
-      <AboutSection />
+      <BlindsReveal>
+        <AboutSection />
+      </BlindsReveal>
       <ClientsSection />
       <ServicesSection />
       <CtaBannerSection />
