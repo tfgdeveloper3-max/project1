@@ -40,11 +40,12 @@ const SHUFFLE = [
     { x: 260, y: -40, rotate: 20 },
 ];
 
-const EXIT_DELAYS = {
+// Record<number, number> — TS ko batata hai ke ye object kisi bhi number key se index ho sakta hai
+const EXIT_DELAYS: Record<number, number> = {
     2: 0,
     3: 0.15,
     0: 0.4,
-    1: 0.55
+    1: 0.55,
 };
 
 const headerContainer: Variants = {
@@ -69,9 +70,9 @@ const cardVariants: Variants = {
         rotate: SHUFFLE[i].rotate,
         scale: 0.75,
         transition: {
-            duration: 0.8,              
-            ease: [0.22, 1, 0.36, 1],   
-            delay: EXIT_DELAYS[i] || 0,  
+            duration: 0.7,
+            ease: [0.22, 1, 0.36, 1],
+            delay: EXIT_DELAYS[i] ?? 0,
         },
     }),
     visible: (i: number) => ({
@@ -82,10 +83,10 @@ const cardVariants: Variants = {
         scale: 1,
         transition: {
             type: "spring",
-            stiffness: 55,
-            damping: 16,
-            mass: 1.2,
-            delay: i * 0.25,
+            stiffness: 110,
+            damping: 20,
+            mass: 0.7,
+            delay: i * 0.18,
         },
     }),
 };
@@ -101,6 +102,7 @@ function ProjectCard({
         <motion.div
             custom={index}
             variants={cardVariants}
+            style={{ willChange: "transform, opacity" }}
             className={`group relative overflow-hidden rounded-[28px] shadow-2xl ${project.size === "tall" ? "h-[420px] lg:h-[560px]" : "h-[280px] lg:h-[380px]"
                 }`}
         >
@@ -164,15 +166,8 @@ export default function PortfolioSection() {
 
     return (
         <section className="w-full bg-white py-20 font-atyp md:py-28">
-            <div
-                ref={containerRef}
-                className="mx-auto max-w-[1550px] px-6 text-center md:px-12"
-            >
-                <motion.div
-                    variants={headerContainer}
-                    initial="hidden"
-                    animate={phase}
-                >
+            <div ref={containerRef} className="mx-auto max-w-[1550px] px-6 text-center md:px-12">
+                <motion.div variants={headerContainer} initial="hidden" animate={phase}>
                     <motion.span
                         variants={headerItem}
                         className="mb-6 inline-flex w-fit items-center rounded-full bg-neutral-200/70 px-5 py-2 text-sm text-neutral-700"

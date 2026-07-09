@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 import { motion, type Variants } from "motion/react";
 import $ from "../lib/jquery-setup";
 import "jquery-ui-dist/jquery-ui";
-import { div } from "motion/react-client";
 
 const HEADLINE = "Got A Project In Mind? Let's Talk.";
 const BRAND_NAME = "YOURBRAND";
