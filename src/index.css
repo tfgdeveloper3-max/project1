@@ -55,6 +55,7 @@ body,
 
 body {
   font-family: "AtypText", sans-serif;
+  overflow-x: hidden;
 }
 
 .ui-draggable,

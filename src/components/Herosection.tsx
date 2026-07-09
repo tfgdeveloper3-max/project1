@@ -76,7 +76,7 @@ export default function HeroSection() {
     }, []);
 
     return (
-        <section className="relative w-full overflow-hidden bg-[#ffffff] font-atyp">
+        <section className="relative w-full overflow-hidden bg-[#ffffff] font-atyp overflow-hidden">
 
             <div className="relative pb-20 md:pb-28 lg:pb-32">
                 <div
@@ -241,7 +241,7 @@ export default function HeroSection() {
                             }}
                         >
                             <img
-                                src="/images/hero/card-video.png"
+                                src="/images/hero/card-video.jpg"
                                 alt="Video Animation"
                                 className="w-full drop-shadow-xl"
                                 draggable={false}

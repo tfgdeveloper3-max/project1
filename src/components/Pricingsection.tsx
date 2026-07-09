@@ -1,4 +1,5 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { motion, type Variants } from "motion/react";
 import $ from "../lib/jquery-setup";
 import "jquery-ui-dist/jquery-ui";
 
@@ -7,7 +8,6 @@ type Plan = {
     description: string;
     price: string;
     features: string[];
-    highlighted?: boolean;
 };
 
 const PLANS: Plan[] = [
@@ -32,7 +32,6 @@ const PLANS: Plan[] = [
             "Custom Design & Development",
             "E-Commerce Or Advanced Features",
         ],
-        highlighted: true,
     },
     {
         name: "Business Plan",
@@ -46,6 +45,8 @@ const PLANS: Plan[] = [
         ],
     },
 ];
+
+const DEFAULT_ACTIVE = 1; 
 
 function MoneyBagIcon({ className }: { className?: string }) {
     return (
@@ -82,35 +83,46 @@ function CheckIcon() {
     );
 }
 
+const cardVariants: Variants = {
+    hidden: (i: number) => ({
+        opacity: 0,
+        x: i === 0 ? -120 : i === 2 ? 120 : 0,
+        y: i === 1 ? 90 : 0,
+        scale: 0.9,
+    }),
+    visible: (i: number) => ({
+        opacity: 1,
+        x: 0,
+        y: 0,
+        scale: 1,
+        transition: {
+            type: "spring",
+            stiffness: 90,
+            damping: 16,
+            mass: 0.9,
+            delay: i * 0.15,
+        },
+    }),
+};
+
+const headerContainer: Variants = {
+    hidden: {},
+    visible: { transition: { staggerChildren: 0.18 } },
+};
+
+const headerItem: Variants = {
+    hidden: { opacity: 0, y: 24 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+    },
+};
+
 export default function PricingSection() {
-    const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
     const priceTagRefs = useRef<(HTMLSpanElement | null)[]>([]);
+    const [activeIndex, setActiveIndex] = useState<number>(DEFAULT_ACTIVE);
 
-    // Scroll-triggered reveal, same pattern as the contact card in HeroSection
-    useEffect(() => {
-        const observers: IntersectionObserver[] = [];
-
-        cardRefs.current.forEach((el) => {
-            if (!el) return;
-            const observer = new IntersectionObserver(
-                ([entry]) => {
-                    if (entry.isIntersecting) {
-                        $(el)
-                            .removeClass("opacity-0")
-                            .addClass("animate__animated animate__fadeInUp");
-                        observer.disconnect();
-                    }
-                },
-                { threshold: 0.2 }
-            );
-            observer.observe(el);
-            observers.push(observer);
-        });
-
-        return () => observers.forEach((o) => o.disconnect());
-    }, []);
-
-    // jQuery UI tooltip on the "/One Time" price label, same convention as the ratings tooltip in HeroSection
     useEffect(() => {
         const $tags = priceTagRefs.current
             .filter((el): el is HTMLSpanElement => !!el)
@@ -131,102 +143,130 @@ export default function PricingSection() {
 
     return (
         <section className="relative w-full bg-[#f5f5f4] px-6 py-20 font-atyp md:px-12 lg:py-28">
-            <div className="mx-auto max-w-3xl text-center">
-                <span className="animate__animated animate__fadeInUp mb-6 inline-flex w-fit items-center rounded-full bg-neutral-200/70 px-5 py-2 text-sm text-neutral-700">
+            <motion.div
+                className="mx-auto max-w-3xl text-center"
+                variants={headerContainer}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: false, amount: 0.3 }}
+            >
+                <motion.span
+                    variants={headerItem}
+                    className="mb-6 inline-flex w-fit items-center rounded-full bg-neutral-200/70 px-5 py-2 text-sm text-neutral-700"
+                >
                     Pricing
-                </span>
+                </motion.span>
 
-                <h2 className="animate__animated animate__fadeInUp animate__delay-1s text-[36px] font-light leading-[1.1] text-neutral-900 sm:text-[44px] lg:text-[52px]">
+                <motion.h2
+                    variants={headerItem}
+                    className="text-[36px] font-light leading-[1.1] text-neutral-900 sm:text-[44px] lg:text-[52px]"
+                >
                     Flexible <span className="font-semibold text-brand">PRICING</span> For Every Need
-                </h2>
+                </motion.h2>
 
-                <p className="animate__animated animate__fadeInUp animate__delay-2s mx-auto mt-6 max-w-2xl text-[15px] leading-relaxed text-neutral-500">
+                <motion.p
+                    variants={headerItem}
+                    className="mx-auto mt-6 max-w-2xl text-[15px] leading-relaxed text-neutral-500"
+                >
                     Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry. Lorem
                     Ipsum Has Been The Industry&apos;s Standard Dummy Text Ever Since 1966, When
                     Designers At Letraset And James Mosley.
-                </p>
-            </div>
+                </motion.p>
+            </motion.div>
 
             <div className="mx-auto mt-14 grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-3">
-                {PLANS.map((plan, i) => (
-                    <div
-                        key={plan.name}
-                        ref={(el) => {
-                            cardRefs.current[i] = el;
-                        }}
-                        className={[
-                            "opacity-0 flex flex-col rounded-[24px] p-8 transition-transform duration-300",
-                            plan.highlighted
-                                ? "bg-gradient-to-br from-brand to-emerald-700 text-white md:-my-4 md:scale-[1.03] shadow-[0_25px_50px_-15px_rgba(0,0,0,0.35)]"
-                                : "bg-white text-neutral-900 shadow-[0_15px_35px_-15px_rgba(0,0,0,0.15)]",
-                        ].join(" ")}
-                    >
-                        <div
+                {PLANS.map((plan, i) => {
+                    const isActive = activeIndex === i;
+
+                    return (
+                        <motion.div
+                            key={plan.name}
+                            custom={i}
+                            variants={cardVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: false, amount: 0.25 }}
+                            onMouseEnter={() => setActiveIndex(i)}
+                            onMouseLeave={() => setActiveIndex(DEFAULT_ACTIVE)}
+                            animate={{
+                                scale: isActive ? 1.03 : 1,
+                                y: isActive ? -16 : 0,
+                            }}
+                            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
                             className={[
-                                "flex h-14 w-14 items-center justify-center rounded-full",
-                                plan.highlighted ? "bg-white text-brand" : "bg-brand text-white",
+                                "flex flex-col rounded-[24px] p-8 transition-colors duration-500",
+                                isActive
+                                    ? "bg-gradient-to-br from-brand to-emerald-700 text-white shadow-[0_25px_50px_-15px_rgba(0,0,0,0.35)]"
+                                    : "bg-white text-neutral-900 shadow-[0_15px_35px_-15px_rgba(0,0,0,0.15)]",
                             ].join(" ")}
                         >
-                            <MoneyBagIcon className="h-6 w-6" />
-                        </div>
-
-                        <h3 className="mt-6 text-2xl font-normal">{plan.name}</h3>
-                        <p
-                            className={[
-                                "mt-3 text-sm leading-relaxed",
-                                plan.highlighted ? "text-white/85" : "text-neutral-500",
-                            ].join(" ")}
-                        >
-                            {plan.description}
-                        </p>
-
-                        <div className="mt-6 flex items-baseline gap-2">
-                            <span className="text-[40px] font-medium leading-none">{plan.price}</span>
-                            <span
-                                ref={(el) => {
-                                    priceTagRefs.current[i] = el;
-                                }}
-                                title="Single payment, no recurring fees"
+                            <div
                                 className={[
-                                    "cursor-help text-sm",
-                                    plan.highlighted ? "text-white/80" : "text-neutral-500",
+                                    "flex h-14 w-14 items-center justify-center rounded-full transition-colors duration-500",
+                                    isActive ? "bg-white text-brand" : "bg-brand text-white",
                                 ].join(" ")}
                             >
-                                /One Time
-                            </span>
-                        </div>
+                                <MoneyBagIcon className="h-6 w-6" />
+                            </div>
 
-                        <div
-                            className={[
-                                "mt-8 flex flex-1 flex-col justify-between rounded-[18px] p-6",
-                                plan.highlighted ? "bg-white text-neutral-900" : "bg-emerald-50",
-                            ].join(" ")}
-                        >
-                            <ul className="flex flex-col gap-4">
-                                {plan.features.map((feature) => (
-                                    <li key={feature} className="flex items-center gap-3 text-sm text-neutral-700">
-                                        <span className="text-brand">
-                                            <CheckIcon />
-                                        </span>
-                                        {feature}
-                                    </li>
-                                ))}
-                            </ul>
-
-                            <button
+                            <h3 className="mt-6 text-2xl font-normal">{plan.name}</h3>
+                            <p
                                 className={[
-                                    "btn-sweep relative mt-8 flex w-fit items-center gap-2 overflow-hidden rounded-full px-6 py-3 text-sm font-medium transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.03]",
-                                    plan.highlighted
-                                        ? "bg-brand text-white hover:shadow-lg hover:shadow-emerald-900/30"
-                                        : "bg-cta-gradient text-white shadow-lg shadow-pink-500/20 hover:shadow-lg hover:shadow-pink-500/40",
+                                    "mt-3 text-sm leading-relaxed transition-colors duration-500",
+                                    isActive ? "text-white/85" : "text-neutral-500",
                                 ].join(" ")}
                             >
-                                <span className="relative z-10">Get Started With Plan</span>
-                                <span className="relative z-10">↗</span>
-                            </button>
-                        </div>
-                    </div>
-                ))}
+                                {plan.description}
+                            </p>
+
+                            <div className="mt-6 flex items-baseline gap-2">
+                                <span className="text-[40px] font-medium leading-none">{plan.price}</span>
+                                <span
+                                    ref={(el) => {
+                                        priceTagRefs.current[i] = el;
+                                    }}
+                                    title="Single payment, no recurring fees"
+                                    className={[
+                                        "cursor-help text-sm transition-colors duration-500",
+                                        isActive ? "text-white/80" : "text-neutral-500",
+                                    ].join(" ")}
+                                >
+                                    /One Time
+                                </span>
+                            </div>
+
+                            <div
+                                className={[
+                                    "mt-8 flex flex-1 flex-col justify-between rounded-[18px] p-6 transition-colors duration-500",
+                                    isActive ? "bg-white text-neutral-900" : "bg-emerald-50",
+                                ].join(" ")}
+                            >
+                                <ul className="flex flex-col gap-4">
+                                    {plan.features.map((feature) => (
+                                        <li key={feature} className="flex items-center gap-3 text-sm text-neutral-700">
+                                            <span className="text-brand">
+                                                <CheckIcon />
+                                            </span>
+                                            {feature}
+                                        </li>
+                                    ))}
+                                </ul>
+
+                                <button
+                                    className={[
+                                        "btn-sweep relative mt-8 flex w-fit items-center gap-2 overflow-hidden rounded-full px-6 py-3 text-sm font-medium transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.03]",
+                                        isActive
+                                            ? "bg-brand text-white hover:shadow-lg hover:shadow-emerald-900/30"
+                                            : "bg-cta-gradient text-white shadow-lg shadow-pink-500/20 hover:shadow-lg hover:shadow-pink-500/40",
+                                    ].join(" ")}
+                                >
+                                    <span className="relative z-10">Get Started With Plan</span>
+                                    <span className="relative z-10">↗</span>
+                                </button>
+                            </div>
+                        </motion.div>
+                    );
+                })}
             </div>
         </section>
     );

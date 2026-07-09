@@ -1,6 +1,5 @@
-import { useEffect, useRef } from "react";
-import $ from "../lib/jquery-setup";
-import "jquery-ui-dist/jquery-ui";
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence, type Variants } from "motion/react";
 
 type Testimonial = {
     name: string;
@@ -66,121 +65,165 @@ function PhoneIcon() {
     );
 }
 
+const cardVariants: Variants = {
+    enter: (direction: number) => ({
+        x: direction > 0 ? 300 : -300,
+        opacity: 0,
+        rotateY: direction > 0 ? 15 : -15,
+        scale: 0.9,
+    }),
+    center: {
+        x: 0,
+        opacity: 1,
+        rotateY: 0,
+        scale: 1,
+        transition: {
+            duration: 1.5,
+            ease: [0.16, 1, 0.3, 1],
+        },
+    },
+    exit: (direction: number) => ({
+        x: direction > 0 ? -300 : 300,
+        opacity: 0,
+        rotateY: direction > 0 ? -15 : 15,
+        scale: 0.9,
+        transition: {
+            duration: 1.5,
+            ease: [0.16, 1, 0.3, 1],
+        },
+    }),
+};
+
+const headerVariants: Variants = {
+    hidden: { opacity: 0, y: 30, filter: "blur(4px)" },
+    visible: {
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] },
+    },
+};
+
 export default function TestimonialsSection() {
-    const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-    const ratingRef = useRef<HTMLDivElement>(null);
-    const trustRef = useRef<HTMLDivElement>(null);
+    const [[current, direction], setCurrent] = useState([0, 1]);
+    const [isPaused, setIsPaused] = useState(false);
 
     useEffect(() => {
-        const observers: IntersectionObserver[] = [];
+        if (isPaused) return;
+        const timer = setInterval(() => {
+            paginate(1);
+        }, 5000);
+        return () => clearInterval(timer);
+    }, [isPaused, current]);
 
-        cardRefs.current.forEach((el) => {
-            if (!el) return;
-            const observer = new IntersectionObserver(
-                ([entry]) => {
-                    if (entry.isIntersecting) {
-                        $(el)
-                            .removeClass("opacity-0")
-                            .addClass("animate__animated animate__fadeInUp");
-                        observer.disconnect();
-                    }
-                },
-                { threshold: 0.2 }
-            );
-            observer.observe(el);
-            observers.push(observer);
-        });
+    const paginate = (newDirection: number) => {
+        setCurrent([((current + newDirection) + TESTIMONIALS.length) % TESTIMONIALS.length, newDirection]);
+    };
 
-        return () => observers.forEach((o) => o.disconnect());
-    }, []);
-
-
-    useEffect(() => {
-        if (!ratingRef.current) return;
-        const $rating = $(ratingRef.current);
-
-        $rating.tooltip({
-            position: { my: "center bottom-10", at: "center top" },
-        });
-
-        return () => {
-            if ($rating.data("ui-tooltip")) $rating.tooltip("destroy");
-        };
-    }, []);
-
-    useEffect(() => {
-        const el = trustRef.current;
-        if (!el) return;
-
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    $(el).effect("highlight", { color: "#d1fae5" }, 1200);
-                    observer.disconnect();
-                }
-            },
-            { threshold: 0.4 }
-        );
-        observer.observe(el);
-        return () => observer.disconnect();
-    }, []);
+    const activeTestimonial = TESTIMONIALS[current];
 
     return (
-        <section className="relative w-full bg-[#fdfcf7] px-6 py-20 font-atyp md:px-12 lg:py-28">
+        // overflow-x-hidden lagaya hai extra safety ke liye
+        <section className="relative w-full overflow-x-hidden bg-[#fdfcf7] px-6 py-20 font-atyp md:px-12 lg:py-28">
             <div className="mx-auto max-w-3xl text-center">
-                <span className="animate__animated animate__fadeInUp mb-6 inline-flex w-fit items-center rounded-full bg-neutral-200/70 px-5 py-2 text-sm text-neutral-700">
+                <motion.span
+                    variants={headerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.5 }}
+                    className="mb-6 inline-flex w-fit items-center rounded-full bg-neutral-200/70 px-5 py-2 text-sm text-neutral-700"
+                >
                     Reviews
-                </span>
+                </motion.span>
 
-                <h2 className="animate__animated animate__fadeInUp animate__delay-1s text-[36px] font-light leading-[1.1] text-neutral-900 sm:text-[44px] lg:text-[52px]">
+                <motion.h2
+                    variants={headerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.5 }}
+                    className="text-[36px] font-light leading-[1.1] text-neutral-900 sm:text-[44px] lg:text-[52px]"
+                >
                     What Our <span className="font-semibold text-brand">CLIENTS</span> Are Saying
-                </h2>
+                </motion.h2>
 
-                <p className="animate__animated animate__fadeInUp animate__delay-2s mx-auto mt-6 max-w-2xl text-[15px] leading-relaxed text-neutral-500">
+                <motion.p
+                    variants={headerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.5 }}
+                    className="mx-auto mt-6 max-w-2xl text-[15px] leading-relaxed text-neutral-500"
+                >
                     Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry. Lorem
                     Ipsum Has Been The Industry&apos;s Standard Dummy Text Ever Since 1966, When
                     Designers At Letraset And James Mosley.
-                </p>
+                </motion.p>
             </div>
 
-            <div className="mx-auto mt-16 grid max-w-6xl grid-cols-1 items-center gap-6 md:grid-cols-3">
-                {TESTIMONIALS.map((t, i) => (
-                    <div
-                        key={t.name}
-                        ref={(el) => { cardRefs.current[i] = el; }}
-                        className={[
-                            "opacity-0 flex flex-col items-center rounded-[20px] px-8 py-10 text-center transition-transform duration-300",
-                            t.featured
-                                ? "bg-emerald-50 md:-my-6 md:scale-[1.03] shadow-[0_25px_50px_-20px_rgba(16,94,62,0.25)]"
-                                : "border border-neutral-200 bg-white",
-                        ].join(" ")}
+            {/* Slider Container - overflow-hidden se horizontal scroll band hoga */}
+            <div
+                className="relative mx-auto mt-16 max-w-2xl overflow-hidden"
+                style={{ perspective: 1200 }}
+                onMouseEnter={() => setIsPaused(true)}
+                onMouseLeave={() => setIsPaused(false)}
+            >
+                {/* mode="wait" se pehle wala card poora chala jayega phir naya aayega */}
+                <AnimatePresence initial={false} custom={direction} mode="wait">
+                    <motion.div
+                        key={current}
+                        custom={direction}
+                        variants={cardVariants}
+                        initial="enter"
+                        animate="center"
+                        exit="exit"
+                        className={`w-full flex flex-col items-center rounded-[24px] px-8 py-12 text-center shadow-2xl md:px-12 md:py-16 ${activeTestimonial.featured
+                                ? "bg-emerald-50 shadow-[0_25px_50px_-20px_rgba(16,94,62,0.2)]"
+                                : "border border-neutral-200 bg-white"
+                            }`}
                     >
                         <img
-                            src={t.avatar}
-                            alt={t.name}
-                            className={[
-                                "rounded-full border-2 border-white object-cover shadow-md",
-                                t.featured ? "h-24 w-24" : "h-20 w-20",
-                            ].join(" ")}
+                            src={activeTestimonial.avatar}
+                            alt={activeTestimonial.name}
+                            className={`rounded-full border-4 border-white object-cover shadow-lg ${activeTestimonial.featured ? "h-28 w-28" : "h-24 w-24"
+                                }`}
                             draggable={false}
                         />
 
-                        <h3 className="mt-5 text-lg font-bold text-neutral-900">{t.name}</h3>
-                        <p className="mt-1 text-sm font-medium text-neutral-500">{t.role}</p>
+                        <h3 className="mt-6 text-xl font-bold text-neutral-900">{activeTestimonial.name}</h3>
+                        <p className="mt-1 text-sm font-medium text-neutral-500">{activeTestimonial.role}</p>
 
                         <div className="my-6 h-px w-full max-w-[220px] bg-neutral-200" />
 
                         <Stars />
 
-                        <p className="mt-6 max-w-[260px] text-sm leading-relaxed text-neutral-500">
-                            {t.quote}
+                        <p className="mt-6 max-w-md text-[15px] leading-relaxed text-neutral-600">
+                            {activeTestimonial.quote}
                         </p>
-                    </div>
+                    </motion.div>
+                </AnimatePresence>
+            </div>
+
+            {/* Navigation Dots */}
+            <div className="mt-10 flex justify-center gap-3">
+                {TESTIMONIALS.map((_, i) => (
+                    <button
+                        key={i}
+                        onClick={() => paginate(i === current ? 1 : (i > current ? 1 : -1))}
+                        className={`h-3 rounded-full transition-all duration-500 ${current === i ? "w-8 bg-brand" : "w-3 bg-neutral-300 hover:bg-neutral-400"
+                            }`}
+                        aria-label={`Go to testimonial ${i + 1}`}
+                    />
                 ))}
             </div>
 
-            <div className="mx-auto mt-14 flex max-w-3xl flex-col items-center gap-4">
-                <div ref={trustRef} className="flex items-center gap-3 rounded-full">
+            {/* Bottom Trust Section */}
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                className="mx-auto mt-14 flex max-w-3xl flex-col items-center gap-5"
+            >
+                <div className="flex items-center gap-3 rounded-full px-4 py-2 transition-colors duration-700 hover:bg-emerald-50">
                     <div className="relative h-9 w-9 shrink-0">
                         <img
                             src="https://i.pravatar.cc/72?img=47"
@@ -202,12 +245,12 @@ export default function TestimonialsSection() {
                     </p>
                 </div>
 
-                <div ref={ratingRef} className="flex cursor-help items-center gap-2" title="Based on verified customer reviews">
+                <div className="flex items-center gap-2" title="Based on verified customer reviews">
                     <span className="text-base font-bold text-neutral-900">4.9</span>
                     <Stars color="text-brand" size="h-4 w-4" />
                     <span className="text-sm text-neutral-500">Over 2000 Reviews</span>
                 </div>
-            </div>
+            </motion.div>
         </section>
     );
 }

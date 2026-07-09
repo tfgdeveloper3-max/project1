@@ -8,6 +8,7 @@ import PortfolioSection from './components/Portfoliosection'
 import PricingSection from './components/Pricingsection'
 import TestimonialsSection from './components/Testimonialsection'
 import ContactSection from './components/Contactsection'
+import FooterIntroReveal from "./components/FooterIntroReveal";
 import FooterSection from './components/Footersection'
 import BlindsReveal from './components/BlindsReveal'
 
@@ -26,6 +27,7 @@ function App() {
       <PricingSection />
       <TestimonialsSection />
       <ContactSection />
+      <FooterIntroReveal />
       <FooterSection />
     </>
   )

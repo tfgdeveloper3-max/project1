@@ -1,8 +1,11 @@
 import { useEffect, useRef } from "react";
+import { motion, type Variants } from "motion/react";
 import $ from "../lib/jquery-setup";
 import "jquery-ui-dist/jquery-ui";
+import { div } from "motion/react-client";
 
 const HEADLINE = "Got A Project In Mind? Let's Talk.";
+const BRAND_NAME = "YOURBRAND";
 
 const QUICK_LINKS = [
     { label: "Home", href: "/" },
@@ -31,6 +34,52 @@ function ArrowIcon() {
         <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M7 17 17 7M9 7h8v8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
+    );
+}
+
+const wordmarkContainer: Variants = {
+    hidden: {},
+    visible: { transition: { staggerChildren: 0.04 } },
+};
+
+const letterVariants: Variants = {
+    hidden: { opacity: 0, y: 60, filter: "blur(8px)" },
+    visible: {
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
+    },
+};
+
+function BrandWordmark() {
+    return (
+        <motion.div
+            className="pointer-events-none relative mt-4 flex w-full justify-center overflow-hidden select-none"
+            style={{ height: "clamp(60px, 14vw, 150px)" }}
+            variants={wordmarkContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.3 }}
+        >
+            <div
+                className="flex leading-none tracking-tight text-white"
+                style={{
+                    fontSize: "clamp(70px, 16vw, 220px)",
+                    fontWeight: 800,
+                    filter: "drop-shadow(0 18px 22px rgba(0,0,0,0.55))",
+                }}
+            >
+                {BRAND_NAME.split("").map((char, i) => (
+                    <motion.span key={i} variants={letterVariants} className="inline-block">
+                        {char}
+                    </motion.span>
+                ))}
+            </div>
+
+            {/* niche se soft fade — text ka bottom footer background mein "melt" hota hai */}
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-neutral-950 to-transparent" />
+        </motion.div>
     );
 }
 
@@ -225,51 +274,51 @@ export default function FooterSection() {
                                 </li>
                             ))}
                         </ul>
-                    </div>
+                    </div >
 
-                    <div
-                        ref={(el) => { revealRefs.current[4] = el; }}
-                        className="opacity-0 animate__delay-2s"
-                    >
-                        <h4 className="text-sm font-semibold uppercase tracking-wider text-white">Get Notified</h4>
-                        <p className="mt-5 text-sm leading-relaxed text-neutral-400">
-                            Subscribe for occasional updates on our latest work and openings.
-                        </p>
+        <div
+            ref={(el) => { revealRefs.current[4] = el; }}
+            className="opacity-0 animate__delay-2s"
+        >
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-white">Get Notified</h4>
+            <p className="mt-5 text-sm leading-relaxed text-neutral-400">
+                Subscribe for occasional updates on our latest work and openings.
+            </p>
 
-                        <div
-                            ref={subscribeRef}
-                            title="We'll never share your email"
-                            className="mt-5 flex cursor-help items-center gap-2 rounded-full border border-white/15 bg-white/5 p-1.5 pl-5"
-                        >
-                            <input
-                                type="email"
-                                placeholder="Your email"
-                                className="w-full bg-transparent text-sm text-white outline-none placeholder:text-neutral-500"
-                            />
-                            <button
-                                type="button"
-                                className="btn-sweep relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full bg-cta-gradient text-white transition-transform duration-300 hover:scale-110"
-                                aria-label="Subscribe"
-                            >
-                                <span className="relative z-10">
-                                    <ArrowIcon />
-                                </span>
-                            </button>
-                        </div>
+            <div
+                ref={subscribeRef}
+                title="We'll never share your email"
+                className="mt-5 flex cursor-help items-center gap-2 rounded-full border border-white/15 bg-white/5 p-1.5 pl-5"
+            >
+                <input
+                    type="email"
+                    placeholder="Your email"
+                    className="w-full bg-transparent text-sm text-white outline-none placeholder:text-neutral-500"
+                />
+                <button
+                    type="button"
+                    className="btn-sweep relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full bg-cta-gradient text-white transition-transform duration-300 hover:scale-110"
+                    aria-label="Subscribe"
+                >
+                    <span className="relative z-10">
+                        <ArrowIcon />
+                    </span>
+                </button>
+            </div>
 
-                        <div className="mt-8 space-y-1 text-sm text-neutral-400">
-                            <a href="mailto:hello@yourbrand.com" className="block transition-colors hover:text-white">
-                                hello@yourbrand.com
-                            </a>
-                            <a href="tel:+10000000000" className="block transition-colors hover:text-white">
-                                (+1) 000 000 0000
-                            </a>
-                        </div>
-                    </div>
-                </div>
+            <div className="mt-8 space-y-1 text-sm text-neutral-400">
+                <a href="mailto:hello@yourbrand.com" className="block transition-colors hover:text-white">
+                    hello@yourbrand.com
+                </a>
+                <a href="tel:+10000000000" className="block transition-colors hover:text-white">
+                    (+1) 000 000 0000
+                </a>
+            </div>
+        </div>
+                </div >
 
-                {/* Bottom bar */}
-                <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-white/10 py-6 text-xs text-neutral-500 sm:flex-row">
+        {/* Bottom bar */ }
+        < div className = "mt-16 flex flex-col items-center justify-between gap-4 border-t border-white/10 py-6 text-xs text-neutral-500 sm:flex-row" >
                     <p>© {new Date().getFullYear()} YourBrand. All rights reserved.</p>
 
                     <div className="flex items-center gap-6">
@@ -279,8 +328,10 @@ export default function FooterSection() {
                     </div>
 
                     <p className="text-neutral-500">Mon–Fri · 10am–7pm</p>
-                </div>
-            </div>
-        </footer>
+                </div >
+            </div >
+
+        < BrandWordmark />
+        </footer >
     );
 }
