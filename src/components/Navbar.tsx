@@ -1,3 +1,5 @@
+import { ArrowUpRight } from "lucide-react";
+
 const NAV_LINKS = ["Home", "Services", "Portfolio", "Pricing", "Testimonials", "About Us"];
 
 export default function Navbar() {
@@ -24,7 +26,7 @@ export default function Navbar() {
                     aria-label="Go"
                     className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-neutral-900 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:scale-110 hover:rotate-45 hover:bg-brand hover:text-white"
                 >
-                    ↗
+                    <ArrowUpRight strokeWidth={2.5} />
                 </button>
             </div>
         </nav>

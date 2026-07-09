@@ -1,12 +1,27 @@
 import { useEffect, useRef } from "react";
+import { motion } from "motion/react";
 import $ from "../lib/jquery-setup";
 import "jquery-ui-dist/jquery-ui";
+import { ArrowUpRight } from "lucide-react";
 
 const AVATARS = [
     "https://i.pravatar.cc/64?img=12",
     "https://i.pravatar.cc/64?img=32",
     "https://i.pravatar.cc/64?img=47",
 ];
+
+// float animation config — har card ka apna alag rhythm, taake organic lage
+const floatCard = (duration: number, delay = 0, distance = 14) => ({
+    animate: {
+        y: [0, -distance, 0],
+    },
+    transition: {
+        duration,
+        delay,
+        repeat: Infinity,
+        ease: "easeInOut" as const,
+    },
+});
 
 export default function HeroSection() {
     const badgeRef = useRef<HTMLDivElement>(null);
@@ -98,7 +113,7 @@ export default function HeroSection() {
                                         aria-label="Go"
                                         className="btn-sweep relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-full bg-cta-gradient text-white shadow-lg shadow-pink-500/20 transition-all duration-300 hover:-translate-y-0.5 hover:scale-110 hover:rotate-45 hover:shadow-lg hover:shadow-orange-500/40"
                                     >
-                                        <span className="relative z-10">↗</span>
+                                        <span className="relative z-10"><ArrowUpRight strokeWidth={2.75} /></span>
                                     </button>
                                 </div>
 
@@ -148,7 +163,7 @@ export default function HeroSection() {
                                         aria-label="Explore more"
                                         className="btn-sweep absolute left-1/2 top-1/2 z-10 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-brand text-white transition-transform duration-300 hover:scale-110 hover:rotate-45"
                                     >
-                                        <span className="relative z-10">↗</span>
+                                        <span className="relative z-10"><ArrowUpRight strokeWidth={2.75} /></span>
                                     </button>
                                 </div>
                             </div>
@@ -157,13 +172,100 @@ export default function HeroSection() {
 
                     </div>
 
-                    <div className="relative flex min-h-[520px] items-end justify-center md:min-h-[640px] md:items-end md:justify-end lg:min-h-[720px] animate__animated animate__fadeIn">
+                    {/* Right visual: static circle + person, floating cards around */}
+                    <div className="relative flex min-h-[520px] items-center justify-center md:min-h-[640px] lg:min-h-[720px]">
+
+                        {/* Circle background — static */}
                         <img
-                            src="/images/Hero-Banner.png"
-                            alt="Team member showcasing web, video, branding and rating features"
-                            className="animate-hero-float animate__animated animate__fadeIn h-full max-h-[560px] w-auto max-w-none pr-20 select-none object-contain drop-shadow-2xl md:max-h-[640px] lg:max-h-[720px]"
+                            src="/images/hero/circle.png"
+                            alt=""
+                            className="animate__animated animate__fadeIn pointer-events-none absolute h-[75%] w-auto max-w-none select-none object-contain"
                             draggable={false}
                         />
+
+                        {/* Person — static, no float */}
+                        <img
+                            src="/images/hero/person.png"
+                            alt="Team member holding a tablet"
+                            className="animate__animated animate__fadeIn relative z-10 h-full max-h-[560px] w-auto max-w-none select-none object-contain drop-shadow-2xl md:max-h-[640px] lg:max-h-[720px]"
+                            draggable={false}
+                        />
+
+                        {/* Floating card: Web / App Solutions — top left */}
+                        <motion.div
+                            className="absolute left-0 top-[8%] z-20 w-[46%] max-w-[220px] sm:left-2 md:left-0"
+                            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1, ...floatCard(4.5, 0.6).animate }}
+                            transition={{
+                                opacity: { duration: 0.8, delay: 0.6 },
+                                scale: { duration: 0.8, delay: 0.6 },
+                                y: floatCard(4.5, 0.6).transition,
+                            }}
+                        >
+                            <img
+                                src="/images/hero/card-webapp.png"
+                                alt="Web / App Solutions"
+                                className="w-full drop-shadow-xl"
+                                draggable={false}
+                            />
+                        </motion.div>
+
+                        {/* Floating card: 5-Star Rating — top right */}
+                        <motion.div
+                            className="absolute right-0 top-[4%] z-20 w-[40%] max-w-[190px] sm:right-2 md:right-0"
+                            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1, ...floatCard(5, 0.9).animate }}
+                            transition={{
+                                opacity: { duration: 0.8, delay: 0.9 },
+                                scale: { duration: 0.8, delay: 0.9 },
+                                y: floatCard(5, 0.9).transition,
+                            }}
+                        >
+                            <img
+                                src="/images/hero/card-rating.png"
+                                alt="5-Star Rating, 100% Client Satisfaction"
+                                className="w-full drop-shadow-xl"
+                                draggable={false}
+                            />
+                        </motion.div>
+
+                        {/* Floating card: Video Animation — bottom left */}
+                        <motion.div
+                            className="absolute bottom-[10%] left-0 z-20 w-[42%] max-w-[200px] sm:left-2 md:left-0"
+                            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1, ...floatCard(4.8, 1.2).animate }}
+                            transition={{
+                                opacity: { duration: 0.8, delay: 1.2 },
+                                scale: { duration: 0.8, delay: 1.2 },
+                                y: floatCard(4.8, 1.2).transition,
+                            }}
+                        >
+                            <img
+                                src="/images/hero/card-video.png"
+                                alt="Video Animation"
+                                className="w-full drop-shadow-xl"
+                                draggable={false}
+                            />
+                        </motion.div>
+
+                        {/* Floating card: Creative Branding — bottom right */}
+                        <motion.div
+                            className="absolute bottom-[6%] right-0 z-20 w-[42%] max-w-[200px] sm:right-2 md:right-0"
+                            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1, ...floatCard(5.2, 1.5).animate }}
+                            transition={{
+                                opacity: { duration: 0.8, delay: 1.5 },
+                                scale: { duration: 0.8, delay: 1.5 },
+                                y: floatCard(5.2, 1.5).transition,
+                            }}
+                        >
+                            <img
+                                src="/images/hero/card-branding.png"
+                                alt="Creative Branding"
+                                className="w-full drop-shadow-xl"
+                                draggable={false}
+                            />
+                        </motion.div>
                     </div>
                 </div>
             </div>
