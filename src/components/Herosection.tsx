@@ -61,15 +61,17 @@ export default function HeroSection() {
     }, []);
 
     return (
-        <section className="relative w-full pt-6 overflow-hidden bg-[#ffffff] font-atyp">
+        <section className="relative w-full overflow-hidden bg-[#ffffff] font-atyp">
 
             <div className="relative pb-20 md:pb-28 lg:pb-32">
                 <div
-                    className="pointer-events-none absolute inset-y-0 right-0 hidden w-[52%] bg-brand md:block"
-                    style={{ clipPath: "polygon(28% 0, 100% 0, 100% 100%, 0% 100%)" }}
+                    className="pointer-events-none absolute inset-y-0 right-0 hidden w-[52%] bg-gradient-to-r from-[#147237] to-[#91CD89] md:block"
+                    style={{
+                        clipPath: "polygon(40% 0, 100% 0, 100% 100%, 0% 100%)",
+                    }}
                 />
 
-                <div className="relative z-10 grid grid-cols-1 gap-10 px-6 pb-0 pt-6 md:grid-cols-2 md:px-12 lg:pt-10">
+                <div className="relative z-10 grid grid-cols-1 gap-10 px-6 pb-0 pt-10 md:grid-cols-2 md:px-12 lg:pt-30">
                     <div className="flex flex-col justify-center">
                         <span className="animate__animated animate__fadeInUp mb-6 inline-flex w-fit items-center rounded-full bg-neutral-200/70 px-5 py-2 text-sm text-neutral-700">
                             Welcome To The Future Of Design &amp; Development

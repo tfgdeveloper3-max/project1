@@ -2,7 +2,7 @@ const NAV_LINKS = ["Home", "Services", "Portfolio", "Pricing", "Testimonials", "
 
 export default function Navbar() {
     return (
-        <nav className="relative z-20 flex animate__animated animate__fadeInDown items-center justify-between px-6 py-6 md:px-12">
+        <nav className="absolute inset-x-0 top-0 z-20 flex animate__animated animate__fadeInDown items-center justify-between bg-transparent px-6 py-6 md:px-12">
             <span className="text-2xl font-semibold tracking-wide text-neutral-900">
                 LOGO HERE
             </span>
