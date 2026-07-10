@@ -20,14 +20,13 @@ const SHUFFLE = [
     { x: 200, y: 100, rotate: 16 },
 ];
 
-// Record<number, number> — TS ko batata hai ke ye object kisi bhi number key se index ho sakta hai
 const EXIT_DELAYS: Record<number, number> = {
     3: 0,
-    4: 0.1,
-    5: 0.2,
-    0: 0.35,
-    1: 0.45,
-    2: 0.55,
+    4: 0.15,
+    5: 0.30,
+    0: 0.50,
+    1: 0.65,
+    2: 0.80,
 };
 
 const headerContainer: Variants = {
@@ -52,7 +51,7 @@ const cardVariants: Variants = {
         rotate: SHUFFLE[i].rotate,
         scale: 0.75,
         transition: {
-            duration: 0.7,
+            duration: 1.2, // Pehle 0.7 tha, ab slow exit
             ease: [0.22, 1, 0.36, 1],
             delay: EXIT_DELAYS[i] ?? 0,
         },
@@ -65,10 +64,10 @@ const cardVariants: Variants = {
         scale: 1,
         transition: {
             type: "spring",
-            stiffness: 110,
-            damping: 20,
-            mass: 0.7,
-            delay: i * 0.12,
+            stiffness: 60,  // Pehle 110 tha, ab slow & heavy
+            damping: 18,    // Pehle 20 tha, ab thoda more settle
+            mass: 1,        // Pehle 0.7 tha, ab heavy feel
+            delay: i * 0.3, // Pehle 0.12 tha, ab bohot spread out (1.5 sec total stagger)
         },
     }),
 };
@@ -101,7 +100,8 @@ export default function PortfolioGridSection() {
     const scrollDirRef = useRef<"up" | "down">("down");
     const [phase, setPhase] = useState<"hidden" | "visible">("hidden");
 
-    const isInView = useInView(containerRef, { amount: 0.15, once: false });
+    // amount: 0.05 matlab top pe heading sirf 5% dikhte hi trigger ho jayega
+    const isInView = useInView(containerRef, { amount: 0.05, once: false });
 
     useEffect(() => {
         let lastY = window.scrollY;
