@@ -77,11 +77,12 @@ function MapPinIcon() {
 export default function ContactSection() {
     const fieldRefs = useRef<(HTMLElement | null)[]>([]);
     const mapRef = useRef<HTMLDivElement>(null);
+    const formCardRef = useRef<HTMLDivElement>(null);
     const contactItemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
     // Scroll-triggered reveal, same pattern used across HeroSection / PricingSection / TestimonialsSection
     useEffect(() => {
-        const targets = [mapRef.current, ...fieldRefs.current];
+        const targets = [mapRef.current, formCardRef.current];
         const observers: IntersectionObserver[] = [];
 
         targets.forEach((el) => {
@@ -196,48 +197,57 @@ export default function ContactSection() {
                     ))}
                 </div>
 
-                {/* Form */}
-                <div className="flex flex-col gap-5">
-                    <div
-                        ref={(el) => { fieldRefs.current[0] = el; }}
-                        className="opacity-0 rounded-2xl bg-neutral-100/80"
-                    >
-                        <input
-                            type="text"
-                            placeholder="Name"
-                            className="w-full rounded-2xl bg-transparent px-6 py-5 text-neutral-700 outline-none placeholder:text-neutral-400 focus:ring-2 focus:ring-brand/40"
-                        />
-                    </div>
+                {/* Form card */}
+                <div
+                    ref={formCardRef}
+                    className="opacity-0 flex flex-col justify-center rounded-[20px] bg-gradient-to-br from-[#5a9a6a] via-brand to-[#12351f] p-10 md:h-[560px] lg:p-14"
+                >
+                    <h3 className="mb-9 text-[28px] font-semibold leading-tight text-white lg:text-[32px]">
+                        Get In Touch With Us
+                    </h3>
 
-                    <div
-                        ref={(el) => { fieldRefs.current[1] = el; }}
-                        className="opacity-0 animate__delay-1s rounded-2xl bg-neutral-100/80"
-                    >
-                        <input
-                            type="email"
-                            placeholder="Email address"
-                            className="w-full rounded-2xl bg-transparent px-6 py-5 text-neutral-700 outline-none placeholder:text-neutral-400 focus:ring-2 focus:ring-brand/40"
-                        />
-                    </div>
+                    <div className="flex flex-col gap-8">
+                        <div
+                            ref={(el) => { fieldRefs.current[0] = el; }}
+                            className="border-b border-white/35 pb-3"
+                        >
+                            <input
+                                type="text"
+                                placeholder="Name"
+                                className="w-full bg-transparent text-white outline-none placeholder:text-white/70"
+                            />
+                        </div>
 
-                    <div
-                        ref={(el) => { fieldRefs.current[2] = el; }}
-                        className="opacity-0 animate__delay-2s flex-1 rounded-2xl bg-neutral-100/80"
-                    >
-                        <textarea
-                            placeholder="Message"
-                            rows={5}
-                            className="h-full w-full resize-none rounded-2xl bg-transparent px-6 py-5 text-neutral-700 outline-none placeholder:text-neutral-400 focus:ring-2 focus:ring-brand/40"
-                        />
-                    </div>
+                        <div
+                            ref={(el) => { fieldRefs.current[1] = el; }}
+                            className="border-b border-white/35 pb-3"
+                        >
+                            <input
+                                type="email"
+                                placeholder="Email address"
+                                className="w-full bg-transparent text-white outline-none placeholder:text-white/70"
+                            />
+                        </div>
 
-                    <button
-                        ref={(el) => { fieldRefs.current[3] = el; }}
-                        type="button"
-                        className="btn-sweep opacity-0 animate__delay-2s relative mt-2 overflow-hidden rounded-full bg-cta-gradient px-8 py-5 text-base font-medium text-white shadow-lg shadow-pink-500/20 transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.01] hover:shadow-lg hover:shadow-pink-500/40"
-                    >
-                        <span className="relative z-10">Send Now</span>
-                    </button>
+                        <div
+                            ref={(el) => { fieldRefs.current[2] = el; }}
+                            className="border-b border-white/35 pb-3"
+                        >
+                            <input
+                                type="text"
+                                placeholder="Message"
+                                className="w-full bg-transparent text-white outline-none placeholder:text-white/70"
+                            />
+                        </div>
+
+                        <button
+                            ref={(el) => { fieldRefs.current[3] = el as unknown as HTMLElement; }}
+                            type="button"
+                            className="btn-sweep relative mt-4 overflow-hidden rounded-full bg-white px-8 py-4 text-base font-semibold text-neutral-900 shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.01] hover:shadow-xl"
+                        >
+                            <span className="relative z-10">Send now</span>
+                        </button>
+                    </div>
                 </div>
             </div>
 

@@ -11,6 +11,7 @@ import ContactSection from './components/Contactsection'
 import FooterIntroReveal from "./components/FooterIntroReveal";
 import FooterSection from './components/Footersection'
 import BlindsReveal from './components/BlindsReveal'
+import OurprocesSection from './components/OurprocesSection'
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
       <PortfolioSection />
       <PricingSection />
       <TestimonialsSection />
+      <OurprocesSection />
       <ContactSection />
       <FooterIntroReveal />
       <FooterSection />
