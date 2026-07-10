@@ -23,11 +23,11 @@ function App() {
       </BlindsReveal>
       <ClientsSection />
       <ServicesSection />
-      <CtaBannerSection />
+      <OurprocesSection />
       <PortfolioSection />
       <PricingSection />
       <TestimonialsSection />
-      <OurprocesSection />
+      <CtaBannerSection />
       <ContactSection />
       <FooterIntroReveal />
       <FooterSection />

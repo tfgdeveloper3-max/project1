@@ -66,14 +66,14 @@ export default function ProcessSection() {
             <div className="pointer-events-none absolute left-1/2 top-0 h-72 w-72 -translate-x-1/2 rounded-full bg-[#3f9463]/15 blur-3xl" />
 
             <div className="relative mx-auto max-w-3xl text-center">
-                <span className="mb-6 inline-flex w-fit items-center rounded-full bg-black/20 px-5 py-2 text-sm text-white/90 backdrop-blur-sm">
+                <span className="mb-6 inline-flex w-fit items-center rounded-full bg-black/20 px-5 py-2 font-atyp text-sm text-white/90 backdrop-blur-sm">
                     How We Work
                 </span>
-                <h2 className="text-[30px] font-light leading-[1.2] text-white [text-shadow:0_1px_16px_rgba(0,0,0,0.25)] sm:text-[36px] lg:text-[42px]">
+                <h2 className="font-atyp text-[30px] font-light leading-[1.2] text-white [text-shadow:0_1px_16px_rgba(0,0,0,0.25)] sm:text-[36px] lg:text-[42px]">
                     A Process Built For{" "}
                     <span className="font-semibold text-white">Momentum</span>
                 </h2>
-                <p className="mx-auto mt-5 max-w-lg text-sm leading-relaxed text-white/85">
+                <p className="mx-auto mt-5 max-w-lg font-atyp text-sm leading-relaxed text-white/85">
                     Four disciplined stages, repeated on every engagement — so you always
                     know what's next and why.
                 </p>
@@ -113,18 +113,18 @@ export default function ProcessSection() {
                                     <Icon size={22} strokeWidth={2} />
                                 </div>
 
-                                <span className="mt-5 text-xs font-semibold tracking-wide text-white/80">
+                                <span className="mt-5 font-atyp text-xs font-semibold tracking-wide text-white/80">
                                     STEP {String(i + 1).padStart(2, "0")}
                                 </span>
 
                                 <h3
-                                    className={`mt-2 text-lg font-semibold text-white transition-all duration-300 ${isActive ? "underline decoration-2 underline-offset-4" : ""
+                                    className={`mt-2 font-atyp text-lg font-semibold text-white transition-all duration-300 ${isActive ? "underline decoration-2 underline-offset-4" : ""
                                         }`}
                                 >
                                     {step.title}
                                 </h3>
 
-                                <p className="mt-3 max-w-[220px] text-sm leading-relaxed text-white/85">
+                                <p className="mt-3 max-w-[220px] font-atyp text-sm leading-relaxed text-white/85">
                                     {step.description}
                                 </p>
                             </motion.div>
