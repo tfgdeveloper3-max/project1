@@ -1,5 +1,8 @@
+import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { ArrowUpRight } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
+import { ArrowUpRight, ChevronDown } from "lucide-react";
+import { SERVICE_CATEGORIES } from "../data/serviceCategories";
 
 type NavLink = {
     label: string;
@@ -18,6 +21,7 @@ const NAV_LINKS: NavLink[] = [
 export default function Navbar() {
     const location = useLocation();
     const navigate = useNavigate();
+    const [servicesOpen, setServicesOpen] = useState(false);
 
     const basePath = (to: string) => to.split("#")[0] || "/";
     const isActive = (to: string) =>
@@ -44,22 +48,100 @@ export default function Navbar() {
             </Link>
 
             <ul className="hidden items-center gap-9 text-[15px] text-neutral-700 lg:flex">
-                {NAV_LINKS.map((link) => (
-                    <li key={link.label} className="group relative">
-                        <Link
-                            to={link.to}
-                            onClick={(e) => handleHashClick(link.to, e)}
-                            className={`cursor-pointer transition hover:text-brand ${isActive(link.to) ? "text-brand" : ""
-                                }`}
-                        >
-                            {link.label}
-                            <span
-                                className={`absolute -bottom-1 left-0 h-[1.5px] bg-brand transition-all duration-300 group-hover:w-full ${isActive(link.to) ? "w-full" : "w-0"
+                {NAV_LINKS.map((link) => {
+                    // Special handling for Services -> categorized mega-menu
+                    if (link.label === "Services") {
+                        return (
+                            <li
+                                key={link.label}
+                                className="group relative"
+                                onMouseEnter={() => setServicesOpen(true)}
+                                onMouseLeave={() => setServicesOpen(false)}
+                            >
+                                <Link
+                                    to={link.to}
+                                    className={`flex cursor-pointer items-center gap-1 transition hover:text-brand ${isActive(link.to) || location.pathname.startsWith("/services/")
+                                            ? "text-brand"
+                                            : ""
+                                        }`}
+                                >
+                                    {link.label}
+                                    <ChevronDown
+                                        className={`h-3.5 w-3.5 transition-transform duration-300 ${servicesOpen ? "rotate-180" : ""
+                                            }`}
+                                    />
+                                    <span
+                                        className={`absolute -bottom-1 left-0 h-[1.5px] bg-brand transition-all duration-300 group-hover:w-full ${isActive(link.to) ? "w-full" : "w-0"
+                                            }`}
+                                    />
+                                </Link>
+
+                                <AnimatePresence>
+                                    {servicesOpen && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                                            exit={{ opacity: 0, y: 10, scale: 0.98 }}
+                                            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                                            className="absolute left-1/2 top-full z-30 mt-3 w-[680px] -translate-x-1/2 rounded-2xl bg-white p-6 shadow-[0_20px_60px_rgba(0,0,0,0.12)]"
+                                        >
+                                            <div className="grid grid-cols-3 gap-6">
+                                                {SERVICE_CATEGORIES.map((category) => (
+                                                    <div key={category.key}>
+                                                        <p className="mb-3 text-[11px] font-semibold uppercase tracking-wide text-[#237B43]">
+                                                            {category.label}
+                                                        </p>
+                                                        <div className="flex flex-col gap-0.5">
+                                                            {category.services.map((service) => (
+                                                                <Link
+                                                                    key={service.slug}
+                                                                    to={`/services/${service.slug}`}
+                                                                    onClick={() => setServicesOpen(false)}
+                                                                    className="group/item flex items-center justify-between gap-2 rounded-xl px-3 py-2.5 text-sm text-neutral-700 transition-colors duration-200 hover:bg-[#F0F5F1] hover:text-brand"
+                                                                >
+                                                                    <span>{service.label}</span>
+                                                                    <ArrowUpRight className="h-3.5 w-3.5 shrink-0 opacity-0 transition-opacity duration-200 group-hover/item:opacity-100" />
+                                                                </Link>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+
+                                            <div className="mt-5 border-t border-neutral-100 pt-4">
+                                                <Link
+                                                    to="/services"
+                                                    onClick={() => setServicesOpen(false)}
+                                                    className="flex items-center justify-center gap-2 rounded-xl bg-[#F0F5F1] px-4 py-2.5 text-sm font-medium text-brand transition-colors duration-200 hover:bg-brand hover:text-white"
+                                                >
+                                                    View All Services
+                                                    <ArrowUpRight className="h-3.5 w-3.5" />
+                                                </Link>
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </li>
+                        );
+                    }
+
+                    return (
+                        <li key={link.label} className="group relative">
+                            <Link
+                                to={link.to}
+                                onClick={(e) => handleHashClick(link.to, e)}
+                                className={`cursor-pointer transition hover:text-brand ${isActive(link.to) ? "text-brand" : ""
                                     }`}
-                            />
-                        </Link>
-                    </li>
-                ))}
+                            >
+                                {link.label}
+                                <span
+                                    className={`absolute -bottom-1 left-0 h-[1.5px] bg-brand transition-all duration-300 group-hover:w-full ${isActive(link.to) ? "w-full" : "w-0"
+                                        }`}
+                                />
+                            </Link>
+                        </li>
+                    );
+                })}
             </ul>
 
             <div className="flex items-center gap-3">

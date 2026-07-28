@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, type Variants } from "motion/react";
-import $ from "../../lib/jquery-setup";
+import $ from "../../../lib/jquery-setup";
 import "jquery-ui-dist/jquery-ui";
 
 type Plan = {

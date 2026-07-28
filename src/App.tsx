@@ -1,22 +1,36 @@
-import { Routes, Route } from 'react-router-dom'
-import Navbar from './components/Navbar'
-import FooterIntroReveal from './components/FooterIntroReveal'
-import FooterSection from './components/Footersection'
-import Home from './pages/Home'
-import Services from './pages/Services'
+// src/App.tsx
+
+import { Suspense } from "react";
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Services from "./pages/Services";
+import Navbar from "./components/Navbar";
+import Footersection from "./components/Footersection";
+import { innerServiceRoutes } from "./routes/innerServiceRoutes";
+import FooterIntroReveal from "./components/FooterIntroReveal";
 
 function App() {
   return (
     <>
       <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/services" element={<Services />} />
-      </Routes>
+      <Suspense fallback={<div className="py-40 text-center text-neutral-400">Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/services" element={<Services />} />
+
+          {innerServiceRoutes.map(({ slug, component: Component }) => (
+            <Route
+              key={slug}
+              path={`/services/${slug}`}
+              element={<Component />}
+            />
+          ))}
+        </Routes>
+      </Suspense>
       <FooterIntroReveal />
-      <FooterSection />
+      <Footersection />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

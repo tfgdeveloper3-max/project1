@@ -1,11 +1,13 @@
 import BlindsReveal from "../components/BlindsReveal";
-import AboutService from "../components/services/AboutService";
-import PortfolioGridSection from "../components/services/Portfoliogridsection";
-import ServicesClientsSection from "../components/services/Servicesclientssection";
-import ServicesCta from "../components/services/ServicesCta";
-import ServicesHeroSection from "../components/services/Servicesherosection";
-import ServicesPricing from "../components/services/ServicesPricing";
-import ServicesTestimonials from "../components/services/ServicesTestimonials";
+import ServicesClientsSection from "../components/services/ClientSection";
+import OurServices from "../components/services/OurServices";
+import PricingFaq from "../components/services/Pricing";
+import ServicesHeroSection from "../components/services/ServiceHero";
+import ServicesDemo from "../components/services/ServicesDemo";
+import ServicesFaq from "../components/services/ServicesFaq";
+import ServicesProvide from "../components/services/ServicesProvide";
+import ServicesTimeline from "../components/services/ServicesTimeline";
+
 
 
 export default function Services() {
@@ -14,17 +16,13 @@ export default function Services() {
             <ServicesHeroSection />
             <ServicesClientsSection />
             <BlindsReveal>
-                <AboutService />
+                <OurServices />
             </BlindsReveal>
-            <ServicesCta />
-            <PortfolioGridSection />
-            <ServicesPricing />
-            <ServicesTestimonials />
-            
-            {/* <ServicesSection />
-            <ProcessSection />
-            <TestimonialsSection />
-            <ContactSection /> */}
+            <ServicesTimeline />
+            <ServicesProvide />
+            <ServicesDemo />
+            <PricingFaq />
+            <ServicesFaq />
         </>
     );
 }
