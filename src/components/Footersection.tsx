@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { motion, type Variants } from "motion/react";
 import $ from "../lib/jquery-setup";
 import "jquery-ui-dist/jquery-ui";
+import { Link } from "react-router-dom";
 
 const HEADLINE = "Got A Project In Mind? Let's Talk.";
 const BRAND_NAME = "Weblee";
@@ -91,10 +92,15 @@ function BrandWordmark() {
         >
             <div
                 ref={textRef}
-                className="flex leading-none tracking-tight text-white whitespace-nowrap"
+                className="flex leading-none tracking-tight whitespace-nowrap"
                 style={{
                     fontSize: "clamp(70px, 16vw, 220px)",
                     fontWeight: 800,
+                    backgroundImage:
+                        "linear-gradient(90deg, #1f9048 0%, #e7f3ec 35%, #ffffff 55%, #e7f3ec 75%, #147237 100%)",
+                    WebkitBackgroundClip: "text",
+                    backgroundClip: "text",
+                    color: "transparent",
                     filter: "drop-shadow(0 18px 22px rgba(0,0,0,0.55))",
                     transform: `scaleX(${scaleX})`,
                     transformOrigin: "center",
@@ -196,8 +202,8 @@ export default function FooterSection() {
     }, []);
 
     return (
-        <footer className="relative w-full overflow-hidden bg-neutral-950 px-6 pb-10 pt-20 font-atyp text-neutral-300 md:px-12 lg:pt-28">
-            <div className="mx-auto max-w-6xl">
+        <footer className="relative w-full overflow-hidden bg-neutral-950 pb-10 pt-20 font-atyp text-neutral-300 lg:pt-28">
+            <div className="mx-auto max-w-6xl px-6 md:px-12">
                 {/* Big scroll-revealed headline */}
                 <h2
                     ref={headlineRef}
@@ -237,7 +243,14 @@ export default function FooterSection() {
                         ref={(el) => { revealRefs.current[1] = el; }}
                         className="opacity-0"
                     >
-                        <span className="text-2xl font-semibold tracking-wide text-white">YOURBRAND</span>
+                        <Link to="/" className="flex items-center">
+                            <img
+                                src="/images/Footerlogo.png"
+                                alt="Company Logo"
+                                className="h-10 w-auto object-contain md:h-26"
+                                draggable={false}
+                            />
+                        </Link>
                         <p className="mt-5 max-w-sm text-sm leading-relaxed text-neutral-400">
                             We partner with ambitious teams to design and build digital products
                             that are as functional as they are memorable — from first sketch to

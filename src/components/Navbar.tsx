@@ -43,8 +43,13 @@ export default function Navbar() {
 
     return (
         <nav className="absolute inset-x-0 top-0 z-20 flex animate__animated animate__fadeInDown items-center justify-between bg-transparent px-6 py-6 md:px-12">
-            <Link to="/" className="text-2xl font-semibold tracking-wide text-neutral-900">
-                LOGO HERE
+            <Link to="/" className="flex items-center">
+                <img
+                    src="/images/logo.png"
+                    alt="Company Logo"
+                    className="h-12 w-auto object-contain md:h-18"
+                    draggable={false}
+                />
             </Link>
 
             <ul className="hidden items-center gap-9 text-[15px] text-neutral-700 lg:flex">
@@ -61,8 +66,8 @@ export default function Navbar() {
                                 <Link
                                     to={link.to}
                                     className={`flex cursor-pointer items-center gap-1 transition hover:text-brand ${isActive(link.to) || location.pathname.startsWith("/services/")
-                                            ? "text-brand"
-                                            : ""
+                                        ? "text-brand"
+                                        : ""
                                         }`}
                                 >
                                     {link.label}
