@@ -1,10 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { motion, type Variants } from "motion/react";
 import $ from "../lib/jquery-setup";
 import "jquery-ui-dist/jquery-ui";
 
 const HEADLINE = "Got A Project In Mind? Let's Talk.";
-const BRAND_NAME = "YOURBRAND";
+const BRAND_NAME = "Weblee";
 
 const QUICK_LINKS = [
     { label: "Home", href: "/" },
@@ -52,8 +52,36 @@ const letterVariants: Variants = {
 };
 
 function BrandWordmark() {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const textRef = useRef<HTMLDivElement>(null);
+    const [scaleX, setScaleX] = useState(1);
+
+    useLayoutEffect(() => {
+        const measure = () => {
+            if (!containerRef.current || !textRef.current) return;
+            const containerWidth = containerRef.current.offsetWidth;
+            textRef.current.style.transform = "scaleX(1)";
+            const textWidth = textRef.current.scrollWidth;
+            if (textWidth > 0) {
+                setScaleX(containerWidth / textWidth);
+            }
+        };
+
+        measure();
+
+        const ro = new ResizeObserver(measure);
+        if (containerRef.current) ro.observe(containerRef.current);
+        window.addEventListener("resize", measure);
+
+        return () => {
+            ro.disconnect();
+            window.removeEventListener("resize", measure);
+        };
+    }, []);
+
     return (
         <motion.div
+            ref={containerRef}
             className="pointer-events-none relative mt-4 flex w-full justify-center overflow-hidden select-none"
             style={{ height: "clamp(60px, 14vw, 150px)" }}
             variants={wordmarkContainer}
@@ -62,11 +90,14 @@ function BrandWordmark() {
             viewport={{ once: false, amount: 0.3 }}
         >
             <div
-                className="flex leading-none tracking-tight text-white"
+                ref={textRef}
+                className="flex leading-none tracking-tight text-white whitespace-nowrap"
                 style={{
                     fontSize: "clamp(70px, 16vw, 220px)",
                     fontWeight: 800,
                     filter: "drop-shadow(0 18px 22px rgba(0,0,0,0.55))",
+                    transform: `scaleX(${scaleX})`,
+                    transformOrigin: "center",
                 }}
             >
                 {BRAND_NAME.split("").map((char, i) => (
@@ -76,7 +107,6 @@ function BrandWordmark() {
                 ))}
             </div>
 
-            {/* niche se soft fade — text ka bottom footer background mein "melt" hota hai */}
             <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-neutral-950 to-transparent" />
         </motion.div>
     );
@@ -275,50 +305,50 @@ export default function FooterSection() {
                         </ul>
                     </div >
 
-        <div
-            ref={(el) => { revealRefs.current[4] = el; }}
-            className="opacity-0 animate__delay-2s"
-        >
-            <h4 className="text-sm font-semibold uppercase tracking-wider text-white">Get Notified</h4>
-            <p className="mt-5 text-sm leading-relaxed text-neutral-400">
-                Subscribe for occasional updates on our latest work and openings.
-            </p>
+                    <div
+                        ref={(el) => { revealRefs.current[4] = el; }}
+                        className="opacity-0 animate__delay-2s"
+                    >
+                        <h4 className="text-sm font-semibold uppercase tracking-wider text-white">Get Notified</h4>
+                        <p className="mt-5 text-sm leading-relaxed text-neutral-400">
+                            Subscribe for occasional updates on our latest work and openings.
+                        </p>
 
-            <div
-                ref={subscribeRef}
-                title="We'll never share your email"
-                className="mt-5 flex cursor-help items-center gap-2 rounded-full border border-white/15 bg-white/5 p-1.5 pl-5"
-            >
-                <input
-                    type="email"
-                    placeholder="Your email"
-                    className="w-full bg-transparent text-sm text-white outline-none placeholder:text-neutral-500"
-                />
-                <button
-                    type="button"
-                    className="btn-sweep relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full bg-cta-gradient text-white transition-transform duration-300 hover:scale-110"
-                    aria-label="Subscribe"
-                >
-                    <span className="relative z-10">
-                        <ArrowIcon />
-                    </span>
-                </button>
-            </div>
+                        <div
+                            ref={subscribeRef}
+                            title="We'll never share your email"
+                            className="mt-5 flex cursor-help items-center gap-2 rounded-full border border-white/15 bg-white/5 p-1.5 pl-5"
+                        >
+                            <input
+                                type="email"
+                                placeholder="Your email"
+                                className="w-full bg-transparent text-sm text-white outline-none placeholder:text-neutral-500"
+                            />
+                            <button
+                                type="button"
+                                className="btn-sweep relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full bg-cta-gradient text-white transition-transform duration-300 hover:scale-110"
+                                aria-label="Subscribe"
+                            >
+                                <span className="relative z-10">
+                                    <ArrowIcon />
+                                </span>
+                            </button>
+                        </div>
 
-            <div className="mt-8 space-y-1 text-sm text-neutral-400">
-                <a href="mailto:hello@yourbrand.com" className="block transition-colors hover:text-white">
-                    hello@yourbrand.com
-                </a>
-                <a href="tel:+10000000000" className="block transition-colors hover:text-white">
-                    (+1) 000 000 0000
-                </a>
-            </div>
-        </div>
+                        <div className="mt-8 space-y-1 text-sm text-neutral-400">
+                            <a href="mailto:hello@yourbrand.com" className="block transition-colors hover:text-white">
+                                hello@yourbrand.com
+                            </a>
+                            <a href="tel:+10000000000" className="block transition-colors hover:text-white">
+                                (+1) 000 000 0000
+                            </a>
+                        </div>
+                    </div>
                 </div >
 
-        {/* Bottom bar */ }
-        < div className = "mt-16 flex flex-col items-center justify-between gap-4 border-t border-white/10 py-6 text-xs text-neutral-500 sm:flex-row" >
-                    <p>© {new Date().getFullYear()} YourBrand. All rights reserved.</p>
+                {/* Bottom bar */}
+                < div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-white/10 py-6 text-xs text-neutral-500 sm:flex-row" >
+                    <p>© {new Date().getFullYear()} Weblee. All rights reserved.</p>
 
                     <div className="flex items-center gap-6">
                         <a href="/terms" className="transition-colors hover:text-white">Terms</a>
@@ -330,7 +360,7 @@ export default function FooterSection() {
                 </div >
             </div >
 
-        < BrandWordmark />
+            < BrandWordmark />
         </footer >
     );
 }
