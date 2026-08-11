@@ -9,15 +9,15 @@ import { Check, ArrowUpRight, ChevronLeft, ChevronRight, PackageOpen } from "luc
 const SERVICE_TABS = [
     "Custom Website",
     "E-Commerce Solution",
-    "Web App Solution",
-    "Mobile Application",
-    "UI/UX Design",
+    "Web/App Solution",
+    "Mobile Apps",
+    "Video Animation",
     "Branding & Identity",
-    "Digital Marketing",
+    "Logo Design",
+    "Digital Marketing Services",
     "SEO Optimization",
     "Social Media Marketing",
-    "Content Management",
-    "Cloud & DevOps",
+    "Content Writing",
 ];
 
 interface Plan {
@@ -28,67 +28,91 @@ interface Plan {
 }
 
 const PRICING_DATA: Record<string, Plan[]> = {
+    /* ============ REAL DATA (matched from reference site) ============ */
+
     "Custom Website": [
-        { name: "Basic Website", price: "$244.00", bestSeller: false, features: ["Up to 5 Pages", "Mobile Responsive", "Basic SEO Setup", "Contact Form", "1 Revision Round", "Delivery: 5-7 Days"] },
-        { name: "Startup Website", price: "$394.00", bestSeller: false, features: ["Up to 10 Pages", "Mobile Responsive", "Advanced SEO", "Contact Forms", "2 Revision Rounds", "Delivery: 7-10 Days"] },
-        { name: "Professional Website", price: "$844.00", bestSeller: true, features: ["Up to 20 Pages", "Fully Responsive", "Premium SEO", "CMS Integration", "5 Revision Rounds", "Delivery: 10-14 Days"] },
-        { name: "Elite Website", price: "$1,444.00", bestSeller: false, features: ["Unlimited Pages", "Custom Animations", "Advanced SEO + Analytics", "CMS + Blog", "Unlimited Revisions", "Delivery: 14-21 Days"] },
-        { name: "Corporate Website", price: "$2,444.00", bestSeller: false, features: ["Unlimited Pages", "Multi-language Support", "Enterprise SEO", "Custom CMS", "Dedicated Manager", "Delivery: 21-30 Days"] },
-        { name: "Business Website", price: "$3,944.00", bestSeller: false, features: ["Unlimited Everything", "Custom Integrations", "Full SEO Suite", "Advanced CMS + API", "Priority Support", "Delivery: 30-45 Days"] },
+        { name: "Basic Package", price: "$199", bestSeller: false, features: ["3 Page Website", "2 Stock Images", "1 jQuery Slider Banner", "Contact/Query Form", "24-48 Hours TAT", "Complete Deployment"] },
+        { name: "Startup Package", price: "$399", bestSeller: false, features: ["5 Page Website", "5 Stock Photos", "3 Banner Designs", "Free Google Sitemap", "W3C Certified HTML", "24-48 Hours TAT"] },
+        { name: "Professional Package", price: "$699", bestSeller: false, features: ["10 Unique Pages", "CMS/Admin Panel Support", "8 Stock Images", "5 Banner Designs", "Mobile Responsive", "24-48 Hours TAT"] },
+        { name: "Elite Package", price: "$1,299", bestSeller: false, features: ["Up To 15 Unique Pages", "Online Payment Integration", "Custom Forms", "Newsletter Subscription", "Social Media Integration", "5 Stock Photos"] },
+        { name: "Corporate Package", price: "$1,999", bestSeller: false, features: ["15-20 Pages Website", "Custom WP/PHP Development", "Up To 10 Banner Designs", "Content Management System", "Multi-Lingual (Optional)", "Dedicated Account Manager"] },
+        { name: "Business Package", price: "$3,299", bestSeller: false, features: ["15-20 Pages Website", "15s 2D Explainer Video", "Professional Script Writing", "Custom CMS", "Unlimited Revisions", "Dedicated Account Manager"] },
     ],
+
     "E-Commerce Solution": [
-        { name: "Basic Store", price: "$494.00", bestSeller: false, features: ["Up to 50 Products", "Payment Gateway", "Basic Shipping", "Mobile Responsive", "1 Revision Round", "Delivery: 7-10 Days"] },
-        { name: "Standard Store", price: "$944.00", bestSeller: true, features: ["Up to 500 Products", "Multiple Payments", "Advanced Shipping", "Coupon System", "3 Revision Rounds", "Delivery: 10-14 Days"] },
-        { name: "Professional Store", price: "$1,944.00", bestSeller: false, features: ["Unlimited Products", "All Payment Methods", "Multi-vendor Support", "Inventory Management", "5 Revision Rounds", "Delivery: 14-21 Days"] },
-        { name: "Enterprise Store", price: "$4,944.00", bestSeller: false, features: ["Unlimited Products", "Custom Integrations", "ERP Integration", "Advanced Analytics", "Dedicated Manager", "Delivery: 30-45 Days"] },
+        { name: "E-Commerce Basic", price: "$799", bestSeller: false, features: ["Up To 50 Products", "Up To 7 Categories", "Payment Gateway Integration", "Mini Shopping Cart", "5 Stock Photos", "30 Days Free Maintenance"] },
+        { name: "E-Commerce Plus", price: "$1,299", bestSeller: true, features: ["Up To 400 Products", "Up To 10 Categories", "Product Ratings & Reviews", "Full Shopping Cart", "SEO Friendly Coding", "90 Days Free Maintenance"] },
+        { name: "E-Commerce Prime", price: "$1,999", bestSeller: false, features: ["Up To 1,000 Products", "Multi-Currency Support (Optional)", "1 Year Free Hosting", "1 Year Free Domain", "Email Marketing Campaigns", "180 Days Free Maintenance"] },
+        { name: "E-Commerce Advance", price: "$2,999", bestSeller: false, features: ["Up To 1,500 Products", "Guest Checkout", "3rd Party API Integration", "1 Year Free Hosting + Domain", "5 Business Email Addresses", "180 Days Free Maintenance"] },
+        { name: "Business E-Commerce", price: "$4,499", bestSeller: false, features: ["Unlimited Products & Categories", "Marketplace Development (Optional)", "Multi-Currency Support", "5 Years Free Hosting + Domain", "Unlimited Business Emails", "1 Year Free Maintenance"] },
+        { name: "Automated/Interactive Store", price: "$7,999.99", bestSeller: false, features: ["Unlimited Page Website", "Automated Inventory/Shipping Module", "Barcode Scanning", "Multi-Warehouse Support", "5 Years Free Hosting", "Custom CMS"] },
     ],
-    "Web App Solution": [
-        { name: "Starter App", price: "$1,494.00", bestSeller: false, features: ["Up to 5 Screens", "Basic Functionality", "User Authentication", "Responsive Design", "2 Revision Rounds", "Delivery: 14-21 Days"] },
-        { name: "Growth App", price: "$2,944.00", bestSeller: true, features: ["Up to 15 Screens", "Advanced Features", "Role-based Access", "API Integration", "5 Revision Rounds", "Delivery: 21-30 Days"] },
-        { name: "Enterprise App", price: "$5,944.00", bestSeller: false, features: ["Unlimited Screens", "Custom Architecture", "Third-party APIs", "Real-time Features", "Unlimited Revisions", "Delivery: 30-45 Days"] },
-        { name: "SaaS Platform", price: "$9,944.00", bestSeller: false, features: ["Full SaaS Setup", "Subscription Billing", "Multi-tenancy", "Analytics Dashboard", "Priority Support", "Delivery: 45-60 Days"] },
+
+    "Web/App Solution": [
+        { name: "Conferencing Portal Package", price: "$6,999", bestSeller: false, features: ["Video Conferencing", "Learning Management System", "CRM Features", "Gamification", "Automated Course Creation", "Custom Process Automation"] },
+        { name: "Real Estate Platform Package", price: "$8,999", bestSeller: false, features: ["Multiple Listing Service Access", "Live Search & Detailed Listings", "Buyer/Seller Profile Automation", "CRM & Social Tracking Integration", "Calculator Tools", "Diverse API Integrations"] },
+        { name: "Custom CRM/ERP Portal", price: "$14,499", bestSeller: false, features: ["Full CRM (Sales, Leads, Contracts)", "ERP Modules (HR, Finance, Inventory)", "Sales Forecasting & Automation", "Advanced Data Security", "Business Intelligence Dashboards", "Custom Reporting & Analytics"] },
+        { name: "Social Media Platform Package", price: "$14,999", bestSeller: false, features: ["Unlimited Pages Platform", "User Profile & Admin Management", "Push Notifications", "In-Web Chat Module", "Social Authorization Login", "Free Logo + 12 Months Support"] },
     ],
-    "Mobile Application": [
+
+    "Video Animation": [
+        { name: "Startup Video Package", price: "$399", bestSeller: true, features: ["30s Duration, HD 1080", "Professional Script", "Storyboard Design", "Animations & VFX", "Music And Foley", "Voice Over Artists"] },
+        { name: "Classic Video Package", price: "$799", bestSeller: false, features: ["60 Second Video", "Professional Script", "Storyboard Design", "Animations & VFX", "Unlimited Revisions", "Voice Over Artists"] },
+        { name: "Premium Video Package", price: "$1,495", bestSeller: false, features: ["90 Second Video", "Professional Script", "Storyboard Design", "Animations & VFX", "Music And Foley", "Voice Over Artists"] },
+        { name: "Deluxe Video Package", price: "$1,995", bestSeller: false, features: ["120 Second Video", "Professional Script", "Storyboard Design", "Animations & VFX", "Music And Foley", "Voice Over Artists"] },
+        { name: "Basic 3D Animation", price: "$2,995", bestSeller: false, features: ["30s Duration, HD 1080", "3D Modeling & Texturing", "Rigging & Animation", "Custom Setting, 2 Characters", "Voice Over (All Accents)", "Unlimited Revisions & Concepts"] },
+        { name: "Standard 3D Animation", price: "$4,995", bestSeller: true, features: ["60s Duration, HD 1080", "3D Modeling & Texturing", "Lighting & Camera Setting", "Custom Setting, 2 Characters", "Compositing & Special VFX", "Unlimited Revisions & Concepts"] },
+        { name: "Premium 3D Animation", price: "$6,995", bestSeller: false, features: ["120s Duration, HD 1080", "3D Modeling & Texturing", "Custom Setting, 4 Characters", "Rendering & Compositing", "Voice Over (All Accents)", "Unlimited Revisions & Concepts"] },
+    ],
+
+    "Branding & Identity": [
+        { name: "Startup Collateral Package", price: "$99", bestSeller: false, features: ["2 Stationery Design Set", "Free Fax Template", "Print Ready Formats", "Unlimited Revisions", "100% Satisfaction Guarantee"] },
+        { name: "Collateral Classic Package", price: "$199", bestSeller: true, features: ["2 Stationery Design Set", "Flyer Design", "Brochure Design (Bi-Fold/Tri-Fold)", "Unlimited Revisions", "100% Satisfaction Guarantee"] },
+        { name: "Premium Collateral Package", price: "$399", bestSeller: false, features: ["2 Stationery Design Set", "Packaging Design", "T-Shirt Design", "Unlimited Revisions", "100% Satisfaction Guarantee"] },
+        { name: "Unlimited Collateral Package", price: "$499", bestSeller: false, features: ["2 Stationery Design Set", "Menu Card Design", "T-Shirt Design", "1 Banner Design", "100% Satisfaction Guarantee"] },
+    ],
+
+    "Logo Design": [
+        { name: "Revamp Logo Package", price: "$34", bestSeller: false, features: ["2 Custom Logo Concepts", "By 2 Designers", "2 Revisions", "48-72 Hours TAT", "100% Money Back Guarantee"] },
+        { name: "Startup Logo Package", price: "$64", bestSeller: false, features: ["4 Custom Logo Concepts", "By 2 Designers", "Unlimited Revisions", "48-72 Hours TAT", "100% Satisfaction Guarantee"] },
+        { name: "Professional Logo Package", price: "$114", bestSeller: true, features: ["Unlimited Logo Concepts", "By 4 Industry Designers", "Free Custom Stationery Design", "Free File Formats (EPS, AI, PSD)", "Unlimited Revisions"] },
+        { name: "Identity Logo Package", price: "$164", bestSeller: false, features: ["Unlimited Concepts By 8 Designers", "Free Icon Design", "1 Stationery Design Set", "2-3 Business Days TAT", "Free Unlimited Revisions"] },
+        { name: "Corporate Logo Package", price: "$214", bestSeller: false, features: ["Unlimited Concepts By 6 Designers", "Free Custom Stationery Design", "Double Side Flyer / Brochure", "Email Signature Design", "24-48 Hours TAT"] },
+        { name: "Elite Logo Package", price: "$414", bestSeller: false, features: ["Unlimited Concepts By 8 Designers", "2 Stationery Design Sets", "3 Page Custom Website Included", "Mobile Responsive", "All Final File Formats"] },
+    ],
+
+    "SEO Optimization": [
+        { name: "Startup Plan", price: "$350/mo", bestSeller: false, features: ["Website Audit", "10 Pages Optimized", "15 Selected Keywords", "On-Page SEO Roadmap", "Blog Creation", "Initial Off-Page SEO"] },
+        { name: "Scaling Plan", price: "$700/mo", bestSeller: true, features: ["Business & Competitor Analysis", "35 Selected Keywords", "15 Pages Keyword Targeted", "Google Analytics & Webmaster Setup", "Monthly Reporting", "Off-Page Optimization"] },
+        { name: "Venture Plan", price: "$1,200/mo", bestSeller: false, features: ["Full Prior Analysis", "60+ Selected Keywords", "30 Pages Keyword Targeted", "Google Places Inclusion", "Monthly Reporting + Phone Support", "Off-Page Optimization"] },
+    ],
+
+    "Social Media Marketing": [
+        { name: "SMM Startup", price: "$299", bestSeller: false, features: ["Facebook & Instagram", "12 Design Posts + Copywriting", "Competitive Analysis", "Content Calendar", "Industry & Keyword Research"] },
+        { name: "Pro Video Marketing", price: "$499", bestSeller: false, features: ["Facebook & Instagram", "15 Design Posts + Copywriting", "Brand Reputation Analysis", "Monthly Reporting & Analytics", "1 Free Ads Campaign Setup"] },
+        { name: "SMM Elite", price: "$1,399", bestSeller: false, features: ["3 Channel Setup (FB, IG, Twitter)", "18 Post Designs + Copywriting", "Community Management", "3 Ads Campaign Setup + A/B Testing", "Monthly Ad Spend Management Included"] },
+    ],
+
+    /* ============ OLD PLACEHOLDER DATA (no match found — update these later) ============ */
+
+    "Mobile Apps": [
         { name: "Basic App", price: "$1,944.00", bestSeller: false, features: ["Up to 10 Screens", "Single Platform", "Basic UI/UX", "Push Notifications", "2 Revision Rounds", "Delivery: 21-30 Days"] },
         { name: "Standard App", price: "$3,444.00", bestSeller: true, features: ["Up to 20 Screens", "Cross-platform", "Custom UI/UX", "API Integration", "5 Revision Rounds", "Delivery: 30-45 Days"] },
         { name: "Advanced App", price: "$5,944.00", bestSeller: false, features: ["Unlimited Screens", "Native Performance", "Advanced Animations", "Offline Support", "Unlimited Revisions", "Delivery: 45-60 Days"] },
         { name: "Enterprise App", price: "$9,944.00", bestSeller: false, features: ["Full Custom Build", "Multi-platform", "Complex Features", "Admin Panel", "Dedicated Team", "Delivery: 60-90 Days"] },
     ],
-    "UI/UX Design": [
-        { name: "Basic Design", price: "$344.00", bestSeller: false, features: ["Up to 5 Screens", "Wireframes", "Basic Prototyping", "1 Revision Round", "Figma Source", "Delivery: 5-7 Days"] },
-        { name: "Standard Design", price: "$644.00", bestSeller: true, features: ["Up to 15 Screens", "User Research", "Interactive Prototype", "3 Revision Rounds", "Design System", "Delivery: 10-14 Days"] },
-        { name: "Premium Design", price: "$1,244.00", bestSeller: false, features: ["Up to 30 Screens", "Full User Testing", "Animated Prototype", "Unlimited Revisions", "Complete Design System", "Delivery: 14-21 Days"] },
-    ],
-    "Branding & Identity": [
-        { name: "Starter Brand", price: "$294.00", bestSeller: false, features: ["Logo (2 Concepts)", "Color Palette", "Typography", "1 Revision Round", "PNG + SVG Files", "Delivery: 5-7 Days"] },
-        { name: "Professional Brand", price: "$644.00", bestSeller: true, features: ["Logo (5 Concepts)", "Full Brand Guide", "Business Card", "Letterhead", "3 Revision Rounds", "Delivery: 10-14 Days"] },
-        { name: "Enterprise Brand", price: "$1,444.00", bestSeller: false, features: ["Unlimited Concepts", "Complete Brand Kit", "Social Media Kit", "Brand Guidelines Book", "Unlimited Revisions", "Delivery: 21-30 Days"] },
-    ],
-    "Digital Marketing": [
+
+    "Digital Marketing Services": [
         { name: "Starter Plan", price: "$294/mo", bestSeller: false, features: ["Social Media Setup", "3 Posts/Week", "Basic Analytics", "Monthly Report", "1 Platform", "Strategy Consultation"] },
         { name: "Growth Plan", price: "$644/mo", bestSeller: true, features: ["3 Platforms", "5 Posts/Week", "Ad Management", "Advanced Analytics", "Bi-weekly Reports", "Content Calendar"] },
         { name: "Scale Plan", price: "$1,244/mo", bestSeller: false, features: ["5 Platforms", "Daily Posts", "Full Ad Management", "A/B Testing", "Weekly Reports", "Dedicated Manager"] },
         { name: "Enterprise Plan", price: "$2,444/mo", bestSeller: false, features: ["All Platforms", "Unlimited Content", "Multi-channel Ads", "Conversion Opt.", "Real-time Dashboard", "Full Team Support"] },
     ],
-    "SEO Optimization": [
-        { name: "Basic SEO", price: "$244/mo", bestSeller: false, features: ["Up to 10 Keywords", "On-page SEO", "Technical Audit", "Monthly Report", "Basic Backlinks", "Local SEO Setup"] },
-        { name: "Professional SEO", price: "$644/mo", bestSeller: true, features: ["Up to 30 Keywords", "Full On/Off-page", "Technical Fixes", "Bi-weekly Reports", "Quality Backlinks", "Content Strategy"] },
-        { name: "Enterprise SEO", price: "$1,444/mo", bestSeller: false, features: ["Unlimited Keywords", "Full SEO Suite", "Speed Optimization", "Weekly Reports", "Authority Backlinks", "Dedicated SEO Lead"] },
-    ],
-    "Social Media Marketing": [
-        { name: "Starter SMM", price: "$194/mo", bestSeller: false, features: ["1 Platform", "3 Posts/Week", "Basic Hashtags", "Monthly Report", "Content Creation", "Engagement Monitor"] },
-        { name: "Growth SMM", price: "$494/mo", bestSeller: true, features: ["3 Platforms", "5 Posts/Week", "Story + Reels", "Bi-weekly Reports", "Community Mgmt", "Hashtag Strategy"] },
-        { name: "Premium SMM", price: "$994/mo", bestSeller: false, features: ["5 Platforms", "Daily Posts", "Video Content", "Weekly Reports", "Influencer Outreach", "Paid Social Ads"] },
-    ],
-    "Content Management": [
+
+    "Content Writing": [
         { name: "Basic CMS", price: "$444.00", bestSeller: false, features: ["WordPress Setup", "Basic Theme", "5 Core Pages", "Contact Forms", "Basic Training", "Delivery: 7-10 Days"] },
         { name: "Professional CMS", price: "$944.00", bestSeller: true, features: ["Custom Theme", "Advanced Plugins", "Unlimited Pages", "SEO Tools", "Full Training", "Delivery: 14-21 Days"] },
         { name: "Enterprise CMS", price: "$2,444.00", bestSeller: false, features: ["Headless CMS Setup", "Custom Modules", "Multi-user Roles", "API Integration", "Ongoing Support", "Delivery: 30-45 Days"] },
-    ],
-    "Cloud & DevOps": [
-        { name: "Starter Cloud", price: "$344/mo", bestSeller: false, features: ["Cloud Setup", "Basic CI/CD", "Monitoring", "2 Environments", "Monthly Maintenance", "Email Support"] },
-        { name: "Professional Cloud", price: "$744/mo", bestSeller: true, features: ["Full Infrastructure", "Advanced CI/CD", "Auto-scaling", "Unlimited Env.", "Weekly Maintenance", "Slack Support"] },
-        { name: "Enterprise Cloud", price: "$1,944/mo", bestSeller: false, features: ["Multi-cloud Setup", "Custom Pipelines", "Disaster Recovery", "Security Hardening", "24/7 Monitoring", "Dedicated Engineer"] },
     ],
 };
 
@@ -287,8 +311,8 @@ export default function PricingSection() {
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}
                                 className={`relative shrink-0 whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-300 ${activeTab === tab
-                                        ? "bg-[#3B8C4E] text-white shadow-md shadow-green-900/20"
-                                        : "bg-white text-neutral-600 hover:bg-gray-50 hover:text-neutral-900"
+                                    ? "bg-[#3B8C4E] text-white shadow-md shadow-green-900/20"
+                                    : "bg-white text-neutral-600 hover:bg-gray-50 hover:text-neutral-900"
                                     }`}
                             >
                                 {tab}
