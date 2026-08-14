@@ -3,21 +3,6 @@ import $ from "../lib/jquery-setup";
 import "jquery-ui-dist/jquery-ui";
 import { submitLead } from "../lib/leadApi";
 
-type Pin = {
-    top: string;
-    left: string;
-    label?: string;
-    tooltip: string;
-};
-
-const PINS: Pin[] = [
-    { top: "18%", left: "15%", tooltip: "Am Flughafen office" },
-    { top: "21%", left: "49%", label: "Am Markt, St.", tooltip: "Am Markt office" },
-    { top: "27%", left: "92%", tooltip: "Karl-Liebknecht-Straße office" },
-    { top: "60%", left: "81%", tooltip: "Halle-Kasseler-Straße office" },
-    { top: "76%", left: "39%", tooltip: "Friedegasse office" },
-];
-
 const CONTACT_ITEMS = [
     {
         label: "Call",
@@ -66,17 +51,6 @@ const CONTACT_ITEMS = [
     },
 ];
 
-function MapPinIcon() {
-    return (
-        <svg viewBox="0 0 24 30" className="h-8 w-8 drop-shadow-md" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-                d="M12 1C6.5 1 2 5.4 2 10.8 2 18 12 27 12 27s10-9 10-16.2C22 5.4 17.5 1 12 1Z"
-                fill="currentColor"
-            />
-            <circle cx="12" cy="10.8" r="3.6" fill="white" />
-        </svg>
-    );
-}
 
 type FormStatus = "idle" | "loading" | "success" | "error";
 
@@ -200,38 +174,11 @@ export default function ContactSection() {
                     className="opacity-0 relative h-[420px] overflow-hidden rounded-[20px] bg-neutral-100 md:h-[560px]"
                 >
                     <img
-                        src="/images/Map.png"
+                        src="/images/Map.jpg"
                         alt="Map showing our office locations"
                         className="absolute inset-0 h-full w-full select-none object-cover"
                         draggable={false}
                     />
-
-                    <div
-                        data-pin
-                        title="You are here"
-                        className="absolute flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 cursor-help items-center justify-center rounded-full"
-                        style={{ top: "68%", left: "13%" }}
-                    >
-                        <span className="absolute h-11 w-11 animate-ping rounded-full bg-brand/30" />
-                        <span className="relative h-5 w-5 rounded-full bg-brand ring-4 ring-brand/20" />
-                    </div>
-
-                    {PINS.map((pin, i) => (
-                        <div
-                            key={i}
-                            className="absolute -translate-x-1/2 -translate-y-full"
-                            style={{ top: pin.top, left: pin.left }}
-                        >
-                            {pin.label && (
-                                <span className="mb-1 block w-max -translate-x-1/2 -translate-y-2 rounded-full bg-brand px-4 py-1.5 text-xs font-medium text-white shadow-md">
-                                    {pin.label}
-                                </span>
-                            )}
-                            <div data-pin title={pin.tooltip} className="cursor-help text-brand">
-                                <MapPinIcon />
-                            </div>
-                        </div>
-                    ))}
                 </div>
 
                 {/* Form card */}
