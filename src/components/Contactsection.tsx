@@ -6,8 +6,8 @@ import { submitLead } from "../lib/leadApi";
 const CONTACT_ITEMS = [
     {
         label: "Call",
-        value: "(000) 123 456 789",
-        href: "tel:+10001234567",
+        value: "(626) 740-1517",
+        href: "tel:+16267401517",
         icon: (
             <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -33,7 +33,7 @@ const CONTACT_ITEMS = [
     },
     {
         label: "Location",
-        value: "Texas, USA",
+        value: "Weblee Digital Contact Information 5101 Santa Monica Blvd Ste 8 Los Angeles CA 90029",
         href: null,
         icon: (
             <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -268,16 +268,16 @@ export default function ContactSection() {
                 </div>
             </div>
 
-            <div className="mx-auto mt-16 flex max-w-6xl flex-col flex-wrap items-center justify-center gap-x-16 gap-y-8 sm:flex-row">
+            <div className="mx-auto mt-16 grid max-w-6xl grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-3">
                 {CONTACT_ITEMS.map((item, i) => {
                     const content = (
                         <>
-                            <span className="flex h-12 w-12 items-center justify-center rounded-full border border-brand/30 text-brand transition-colors duration-300 group-hover:bg-brand group-hover:text-white">
+                            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-brand/30 text-brand transition-colors duration-300 group-hover:bg-brand group-hover:text-white">
                                 {item.icon}
                             </span>
                             <div className="text-left">
                                 <p className="font-semibold text-neutral-900">{item.label}</p>
-                                <p className="text-sm text-neutral-500 transition-colors duration-300 group-hover:text-brand">
+                                <p className="text-sm leading-snug text-neutral-500 transition-colors duration-300 group-hover:text-brand">
                                     {item.value}
                                 </p>
                             </div>
@@ -291,7 +291,7 @@ export default function ContactSection() {
                                 ref={(el) => { contactItemRefs.current[i] = el; }}
                                 href={item.href}
                                 title={`Reach us via ${item.label.toLowerCase()}`}
-                                className="group flex cursor-pointer items-center gap-3"
+                                className="group flex cursor-pointer items-start justify-center gap-3 sm:items-center"
                             >
                                 {content}
                             </a>
@@ -303,7 +303,7 @@ export default function ContactSection() {
                             key={item.label}
                             ref={(el) => { contactItemRefs.current[i] = el; }}
                             title="Visit us"
-                            className="group flex cursor-help items-center gap-3"
+                            className="group flex cursor-help items-start justify-center gap-3 sm:items-center"
                         >
                             {content}
                         </div>

@@ -347,8 +347,8 @@ export default function FooterSection() {
                             <a href="mailto:support@webleedigital.com" className="block transition-colors hover:text-white">
                                 support@webleedigital.com
                             </a>
-                            <a href="tel:+10000000000" className="block transition-colors hover:text-white">
-                                (+1) 000 000 0000
+                            <a href="tel:+16267401517" className="block transition-colors hover:text-white">
+                                 (626) 740 1517
                             </a>
                         </div>
                     </div>
