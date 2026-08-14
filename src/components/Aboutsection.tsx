@@ -1,6 +1,7 @@
 import { motion, type Variants } from "motion/react";
 import { Target, Eye, Sparkles, ArrowUpRight } from "lucide-react";
 import { useRevealPhase } from "./BlindsReveal";
+import { useContactModal } from "../context/ContactModalContext";
 
 const ITEMS = [
     {
@@ -62,6 +63,7 @@ const iconStyle: Variants = {
 
 export default function AboutSection() {
     const phase = useRevealPhase();
+    const { openModal } = useContactModal();
 
     return (
         <section id="about" className="relative w-full overflow-hidden bg-white py-20 font-atyp md:py-28">
@@ -164,10 +166,11 @@ export default function AboutSection() {
                         ))}
 
                         <div className="mt-2 flex items-center gap-3">
-                            <button className="btn-sweep relative overflow-hidden whitespace-nowrap rounded-full bg-cta-gradient px-7 py-3.5 text-sm font-medium text-white shadow-lg shadow-pink-500/20 transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.03] hover:shadow-lg hover:shadow-pink-500/40">
+                            <button onClick={() => openModal()} className="btn-sweep relative overflow-hidden whitespace-nowrap rounded-full bg-cta-gradient px-7 py-3.5 text-sm font-medium text-white shadow-lg shadow-pink-500/20 transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.03] hover:shadow-lg hover:shadow-pink-500/40">
                                 <span className="relative z-10">Learn More About Weblee</span>
                             </button>
                             <button
+                                onClick={() => openModal()}
                                 aria-label="Go"
                                 className="btn-sweep relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-cta-gradient text-white shadow-lg shadow-pink-500/20 transition-all duration-300 hover:-translate-y-0.5 hover:scale-110 hover:rotate-45 hover:shadow-lg hover:shadow-orange-500/40"
                             >
