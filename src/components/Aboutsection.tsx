@@ -1,22 +1,25 @@
 import { motion, type Variants } from "motion/react";
-import { DollarSign, Star, ShieldCheck, ArrowUpRight } from "lucide-react";
+import { Target, Eye, Sparkles, ArrowUpRight } from "lucide-react";
 import { useRevealPhase } from "./BlindsReveal";
 
 const ITEMS = [
     {
-        icon: <DollarSign size={22} strokeWidth={2.25} />,
+        icon: <Target size={22} strokeWidth={2.25} />,
         title: "Our Mission",
-        text: "Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry. Lorem Ipsum Has Been Ever Since 1966.",
+        subtitle: "Make Digital Matter.",
+        text: "Our mission is to turn ambitious ideas into meaningful digital experiences — combining creativity, technology, and strategy to create solutions that are beautiful, purposeful, and built around real business goals.",
     },
     {
-        icon: <Star size={22} strokeWidth={2.25} />,
+        icon: <Eye size={22} strokeWidth={2.25} />,
         title: "Our Vision",
-        text: "Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry. Lorem Ipsum Has Been Ever Since 1966.",
+        subtitle: "To Shape What's Next.",
+        text: "We envision a digital world where brands are not simply present — they are memorable. We aim to set new standards in design, technology, and digital experiences that help businesses evolve and lead.",
     },
     {
-        icon: <ShieldCheck size={22} strokeWidth={2.25} />,
+        icon: <Sparkles size={22} strokeWidth={2.25} />,
         title: "What Sets Us Apart",
-        text: "Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry. Lorem Ipsum Has Been Ever Since 1966.",
+        subtitle: "We Think Beyond The Deliverable.",
+        text: "We don't believe in one-size-fits-all digital solutions. We look at the bigger picture, connect every digital touchpoint, and create experiences that feel distinctly yours — from the first idea to long-term growth.",
     },
 ];
 
@@ -41,18 +44,18 @@ const iconStyle: Variants = {
         backgroundColor: "#ffffff",
         color: "#147237",
         transition: {
-            duration: 2.5,                   // Slower reverse
-            ease: [0.16, 1, 0.3, 1],        // Ultra-smooth curve
-            delay: (2 - i) * 0.4,           // Slow reverse stagger
+            duration: 2.5,
+            ease: [0.16, 1, 0.3, 1],
+            delay: (2 - i) * 0.4,
         },
     }),
     visible: (i: number) => ({
         backgroundColor: "#147237",
         color: "#ffffff",
         transition: {
-            duration: 2.5,                   // 2.5 sec mein smoothly change hoga
-            ease: [0.16, 1, 0.3, 1],        // Premium buttery smooth ease
-            delay: 1.5 + i * 0.6,           // Har icon 0.6 sec baad start hoga
+            duration: 2.5,
+            ease: [0.16, 1, 0.3, 1],
+            delay: 1.5 + i * 0.6,
         },
     }),
 };
@@ -61,7 +64,7 @@ export default function AboutSection() {
     const phase = useRevealPhase();
 
     return (
-        <section className="relative w-full overflow-hidden bg-white py-20 font-atyp md:py-28">
+        <section id="about" className="relative w-full overflow-hidden bg-white py-20 font-atyp md:py-28">
             <motion.div
                 className="mx-auto max-w-[1550px] px-6 md:px-12"
                 variants={container}
@@ -73,19 +76,19 @@ export default function AboutSection() {
                         <span className="mb-6 inline-flex w-fit items-center rounded-full bg-neutral-200/70 px-5 py-2 text-sm text-neutral-700">
                             About Us
                         </span>
-
                         <h2 className="text-[35px] font-light leading-[1.15] text-neutral-900 sm:text-[40px] lg:text-[47px]">
-                            Crafting Creative{" "}
-                            <span className="font-bold text-brand">SOLUTIONS FOR </span>
-                            Modern Brands
+                            The Strategy Behind{" "}
+                            <span className="font-bold text-brand ">Weblee</span>
                         </h2>
                     </motion.div>
 
                     <motion.div variants={item}>
                         <p className="text-[16px] pt-15 leading-relaxed text-neutral-500">
-                            Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting
-                            Industry. Lorem Ipsum Has Been The Industry&apos;s Standard Dummy
-                            Text Ever Since 1966, When Designers At Letraset And James Mosley.
+                            Weblee Digital is where creative thinking, technology, and
+                            strategy come together. From websites and e-commerce platforms to
+                            apps, branding, UI/UX, SEO, and digital marketing, we create
+                            connected digital solutions that help modern brands build
+                            presence, earn attention, and move forward with confidence.
                         </p>
                     </motion.div>
 
@@ -93,11 +96,14 @@ export default function AboutSection() {
                     <motion.div variants={item} className="flex flex-col gap-6">
                         <div className="relative overflow-hidden rounded-[28px] bg-brand px-8 py-8 text-white">
                             <h3 className="text-2xl font-medium">24/7 Support</h3>
-                            <div className="mt-6 flex items-end justify-between gap-4">
+                            <p className="mt-1 text-sm font-semibold text-white/95">
+                                Always Within Reach
+                            </p>
+                            <div className="mt-4 flex items-end justify-between gap-4">
                                 <p className="text-sm leading-relaxed text-white/85">
-                                    We provide 24/7 service
-                                    <br />
-                                    to our customers
+                                    Great digital work doesn't end when a project goes live.
+                                    Our team stays available to support, guide, and help you
+                                    navigate what comes next.
                                 </p>
                                 <button
                                     aria-label="Go"
@@ -107,7 +113,6 @@ export default function AboutSection() {
                                 </button>
                             </div>
                         </div>
-
                         <div className="overflow-hidden rounded-[28px]">
                             <img
                                 src="/images/about2.png"
@@ -148,6 +153,9 @@ export default function AboutSection() {
                                     <h4 className="text-xl font-semibold text-neutral-900">
                                         {it.title}
                                     </h4>
+                                    <p className="mt-1 text-[15px] font-semibold text-brand">
+                                        {it.subtitle}
+                                    </p>
                                     <p className="mt-2 text-[15px] leading-relaxed text-neutral-500">
                                         {it.text}
                                     </p>
@@ -157,9 +165,8 @@ export default function AboutSection() {
 
                         <div className="mt-2 flex items-center gap-3">
                             <button className="btn-sweep relative overflow-hidden whitespace-nowrap rounded-full bg-cta-gradient px-7 py-3.5 text-sm font-medium text-white shadow-lg shadow-pink-500/20 transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.03] hover:shadow-lg hover:shadow-pink-500/40">
-                                <span className="relative z-10">Learn More About</span>
+                                <span className="relative z-10">Learn More About Weblee</span>
                             </button>
-
                             <button
                                 aria-label="Go"
                                 className="btn-sweep relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-cta-gradient text-white shadow-lg shadow-pink-500/20 transition-all duration-300 hover:-translate-y-0.5 hover:scale-110 hover:rotate-45 hover:shadow-lg hover:shadow-orange-500/40"

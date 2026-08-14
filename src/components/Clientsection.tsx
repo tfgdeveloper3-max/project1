@@ -112,12 +112,11 @@ export default function ClientsSection() {
                         variants={headerItem}
                         className="text-2xl font-light text-white sm:text-3xl"
                     >
-                        Clients I&apos;ve{" "}
+                       Legacies{" "}
                         <span className="relative font-extrabold text-white">
-                          WORKED
-                          <span className="absolute inset-0 blur-md text-white/70">WORKED</span>
+                           We Build
+                          <span className="absolute inset-0 blur-md text-white/70">We Build</span>
                         </span>{" "}
-                        With
                     </motion.h2>
 
                     <motion.div

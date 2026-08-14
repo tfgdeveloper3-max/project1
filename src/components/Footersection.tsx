@@ -4,7 +4,7 @@ import $ from "../lib/jquery-setup";
 import "jquery-ui-dist/jquery-ui";
 import { Link } from "react-router-dom";
 
-const HEADLINE = "Got A Project In Mind? Let's Talk.";
+const HEADLINE = "Curious to See What Your Brand Could Become?";
 const BRAND_NAME = "Weblee";
 
 const QUICK_LINKS = [
@@ -124,7 +124,6 @@ export default function FooterSection() {
     const subscribeRef = useRef<HTMLDivElement>(null);
     const socialRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
-    // Word-by-word scroll-triggered reveal for the big headline
     useEffect(() => {
         const el = headlineRef.current;
         if (!el) return;
@@ -147,7 +146,6 @@ export default function FooterSection() {
         return () => observer.disconnect();
     }, []);
 
-    // Scroll-triggered reveal for the columns below, same pattern used across all other sections
     useEffect(() => {
         const observers: IntersectionObserver[] = [];
 
@@ -171,7 +169,6 @@ export default function FooterSection() {
         return () => observers.forEach((o) => o.disconnect());
     }, []);
 
-    // jQuery UI tooltip on the subscribe field, same convention used elsewhere
     useEffect(() => {
         if (!subscribeRef.current) return;
         const $el = $(subscribeRef.current);
@@ -181,7 +178,6 @@ export default function FooterSection() {
         };
     }, []);
 
-    // jQuery UI "bounce" effect on social icons the first time they scroll into view
     useEffect(() => {
         const el = socialRefs.current[0]?.parentElement;
         if (!el) return;
@@ -230,7 +226,7 @@ export default function FooterSection() {
                         href="mailto:hello@yourbrand.com"
                         className="btn-sweep relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-cta-gradient px-7 py-4 text-sm font-medium text-white shadow-lg shadow-pink-500/20 transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.03] hover:shadow-lg hover:shadow-pink-500/40"
                     >
-                        <span className="relative z-10">Start A Conversation</span>
+                        <span className="relative z-10">Unlock what’s possible</span>
                         <span className="relative z-10">
                             <ArrowIcon />
                         </span>
@@ -252,9 +248,8 @@ export default function FooterSection() {
                             />
                         </Link>
                         <p className="mt-5 max-w-sm text-sm leading-relaxed text-neutral-400">
-                            We partner with ambitious teams to design and build digital products
-                            that are as functional as they are memorable — from first sketch to
-                            shipped experience.
+                           The digital world is full of noise. We help ambitious brands create something worth noticing. Weblee exists for brands that see beyond the ordinary.
+
                         </p>
 
                         <div className="mt-6 flex items-center gap-3">
@@ -322,9 +317,9 @@ export default function FooterSection() {
                         ref={(el) => { revealRefs.current[4] = el; }}
                         className="opacity-0 animate__delay-2s"
                     >
-                        <h4 className="text-sm font-semibold uppercase tracking-wider text-white">Get Notified</h4>
+                        <h4 className="text-sm font-semibold uppercase tracking-wider text-white">Stay In The Loop </h4>
                         <p className="mt-5 text-sm leading-relaxed text-neutral-400">
-                            Subscribe for occasional updates on our latest work and openings.
+                            Be the first to discover our latest work, creative ideas, and digital experiments.
                         </p>
 
                         <div
@@ -349,8 +344,8 @@ export default function FooterSection() {
                         </div>
 
                         <div className="mt-8 space-y-1 text-sm text-neutral-400">
-                            <a href="mailto:hello@yourbrand.com" className="block transition-colors hover:text-white">
-                                hello@yourbrand.com
+                            <a href="mailto:support@webleedigital.com" className="block transition-colors hover:text-white">
+                                support@webleedigital.com
                             </a>
                             <a href="tel:+10000000000" className="block transition-colors hover:text-white">
                                 (+1) 000 000 0000
@@ -369,7 +364,7 @@ export default function FooterSection() {
                         <a href="/style-guide" className="transition-colors hover:text-white">Style Guide</a>
                     </div>
 
-                    <p className="text-neutral-500">Mon–Fri · 10am–7pm</p>
+                    <p className="text-neutral-500">24/7 Support</p>
                 </div >
             </div >
 

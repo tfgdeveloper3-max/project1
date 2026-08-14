@@ -52,24 +52,22 @@ export default function CtaBannerSection() {
                     />
                 </div>
 
-                {/* content layer — allowed to overflow so image can break out the top */}
                 <div className="relative z-10 grid grid-cols-1 items-center gap-6 px-8 py-10 md:grid-cols-2 md:px-14 md:py-12 lg:px-16">
                     <div>
                         <motion.h2
                             variants={textItem}
                             className="text-[28px] font-extrabold leading-[1.25] text-white sm:text-[34px] lg:text-[40px]"
                         >
-                            BUILD QUALITY WEBSITES,
+                            JOIN WEBLEE - WHERE DESIGN,
                             <br />
-                            <span className="font-light">Improve Business And Grow.</span>
+                            <span className="font-light">TECHNOLOGY & GROWTH COME TOGETHER!</span>
                         </motion.h2>
 
                         <motion.p
                             variants={textItem}
                             className="mt-5 max-w-md text-sm leading-relaxed text-white/80"
                         >
-                            Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting
-                            Industry. Lorem Ipsum Has Been The Industry&apos;s James Mosley.
+                            There’s so much your Digital Business could achieve. Let’s discover it, shape it, and bring it to life.
                         </motion.p>
 
                         <motion.div variants={textItem} className="mt-8 flex items-center gap-3">

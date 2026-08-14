@@ -110,10 +110,10 @@ function ProjectCard({
                 src={project.image}
                 alt={project.title}
                 className={`absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 ${project.position === "top"
-                        ? "object-top"
-                        : project.position === "bottom"
-                            ? "object-bottom"
-                            : "object-center"
+                    ? "object-top"
+                    : project.position === "bottom"
+                        ? "object-bottom"
+                        : "object-center"
                     }`}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
@@ -165,7 +165,7 @@ export default function PortfolioSection() {
     }, [isInView]);
 
     return (
-        <section className="w-full bg-white py-20 font-atyp md:py-28">
+        <section id="portfolio" className="w-full bg-white py-20 font-atyp md:py-28">
             <div ref={containerRef} className="mx-auto max-w-[1550px] px-6 text-center md:px-12">
                 <motion.div variants={headerContainer} initial="hidden" animate={phase}>
                     <motion.span
@@ -179,16 +179,14 @@ export default function PortfolioSection() {
                         variants={headerItem}
                         className="text-[32px] font-light leading-[1.2] text-neutral-900 sm:text-[42px] lg:text-[46px]"
                     >
-                        Crafted With <span className="font-bold text-brand">CREATIVITY & PRECISION</span>
+                        WHAT WE CREATE WHEN <span className="font-bold text-brand">INNOVATION{" "} </span> GET ROOM TO GROW
                     </motion.h2>
 
                     <motion.p
                         variants={headerItem}
                         className="mx-auto mt-5 max-w-2xl text-[15px] leading-relaxed text-neutral-500"
                     >
-                        Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry.
-                        Lorem Ipsum Has Been The Industry&apos;s Standard Dummy Text Ever Since 1966,
-                        When Designers At Letraset And James Mosley.
+                        Our canvas is Digital - our work speaks for itself. Want to see what we can create? Give your eyes a tour worth taking… Scroll down a bit.
                     </motion.p>
                 </motion.div>
 

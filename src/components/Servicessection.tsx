@@ -6,21 +6,21 @@ const SERVICES = [
         number: "01",
         title: "Custom Website",
         description:
-            "Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry. Lorem Ipsum Has Been The Industry's Standard Dummy Text Ever Since 1966, When Designers At Letraset And James Mosley.",
+            "Bespoke websites built around your brand, combining striking design, seamless functionality, and intuitive experiences that turn visitors into customers.",
         filled: true,
     },
     {
         number: "02",
         title: "E-Commerce Solution",
         description:
-            "Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry. Lorem Ipsum Has Been The Industry's Standard Dummy Text Ever Since 1966, When Designers At Letraset And James Mosley.",
+            "High-performance online stores designed to make shopping effortless, strengthen your brand, and turn digital traffic into lasting business.",
         filled: false,
     },
     {
         number: "03",
         title: "Web/App Solution",
         description:
-            "Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry. Lorem Ipsum Has Been The Industry's Standard Dummy Text Ever Since 1966, When Designers At Letraset And James Mosley.",
+            "Smart, scalable digital platforms and applications engineered for performance, usability, and the evolving needs of modern businesses.",
         filled: false,
     },
 ];
@@ -41,13 +41,12 @@ const headerItem: Variants = {
     },
 };
 
-// Zoom out + Slide up + Slow & Smooth
 const cardItem: Variants = {
-    hidden: { 
-        opacity: 0, 
-        y: 80,           // Neeche se slide up hoga
-        scale: 0.7,       // Chhota size se pop/zoom out hoga
-        filter: "blur(8px)" // Shuru mein dhunda (blur) rahega
+    hidden: {
+        opacity: 0,
+        y: 80,
+        scale: 0.7,
+        filter: "blur(8px)"
     },
     visible: {
         opacity: 1,
@@ -55,17 +54,16 @@ const cardItem: Variants = {
         scale: 1,
         filter: "blur(0px)",
         transition: {
-            duration: 1.8,               // 1.8 sec bohot slowly aayega
-            ease: [0.16, 1, 0.3, 1],    // Premium smooth curve
+            duration: 1.8,
+            ease: [0.16, 1, 0.3, 1],
         },
     },
 };
 
 export default function ServicesSection() {
     return (
-        <section className="relative w-full overflow-hidden bg-white py-20 font-atyp md:py-28">
+        <section id="services" className="relative w-full overflow-hidden bg-white py-20 font-atyp md:py-28">
             <div className="mx-auto max-w-[1550px] px-6 md:px-12">
-                {/* Badge + Heading + Paragraph */}
                 <motion.div
                     className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-start"
                     variants={headerContainer}
@@ -85,9 +83,10 @@ export default function ServicesSection() {
                             variants={headerItem}
                             className="text-[35px] font-light leading-[1.15] text-neutral-900 sm:text-[40px] lg:text-[47px]"
                         >
-                            Transforming Ideas Into{" "}
+                            ALL THE{" "}
                             <span className="font-bold text-brand">DIGITAL </span>
-                            <span className="font-bold text-brand">SOLUTIONS</span>
+                            <span className="font-bold text-brand">EXPERTISE{" "}</span>
+                            UNDER ONE ROOF
                         </motion.h2>
                     </div>
 
@@ -96,9 +95,7 @@ export default function ServicesSection() {
                             variants={headerItem}
                             className="text-[16px] pt-15 leading-relaxed text-neutral-500"
                         >
-                            Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting
-                            Industry. Lorem Ipsum Has Been The Industry&apos;s Standard Dummy
-                            Text Ever Since 1966, When Designers At Letraset And James Mosley.
+                            From powerful websites to intelligent applications and distinctive digital identities, we bring creativity, technology, and strategy together to move your brand forward.
                         </motion.p>
                     </div>
                 </motion.div>
@@ -112,9 +109,8 @@ export default function ServicesSection() {
                             initial="hidden"
                             whileInView="visible" // 1 by 1 trigger
                             viewport={{ once: false, amount: 0.2 }} // Thoda sa dikhhte hi start ho jaye
-                            className={`grid grid-cols-1 items-center gap-6 py-10 md:grid-cols-12 md:gap-8 ${
-                                i !== 0 ? "border-t-2 border-neutral-400" : ""
-                            }`}
+                            className={`grid grid-cols-1 items-center gap-6 py-10 md:grid-cols-12 md:gap-8 ${i !== 0 ? "border-t-2 border-neutral-400" : ""
+                                }`}
                         >
                             <div className="md:col-span-3">
                                 <span className="text-sm font-semibold text-brand">
@@ -133,11 +129,10 @@ export default function ServicesSection() {
 
                             <div className="flex md:col-span-3 md:justify-end">
                                 <button
-                                    className={`group flex h-36 w-36 shrink-0 flex-col items-center justify-center gap-1 rounded-full text-sm transition-colors duration-300 lg:h-40 lg:w-40 ${
-                                        service.filled
+                                    className={`group flex h-36 w-36 shrink-0 flex-col items-center justify-center gap-1 rounded-full text-sm transition-colors duration-300 lg:h-40 lg:w-40 ${service.filled
                                             ? "bg-brand text-white hover:bg-neutral-900"
                                             : "border border-neutral-300 text-neutral-900 hover:border-brand hover:bg-brand hover:text-white"
-                                    }`}
+                                        }`}
                                 >
                                     <span className="text-xl transition-transform duration-300 group-hover:rotate-45">
                                         <ArrowUpRight strokeWidth={2.75} />

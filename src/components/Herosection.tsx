@@ -76,7 +76,7 @@ export default function HeroSection() {
     }, []);
 
     return (
-        <section className="relative w-full overflow-hidden bg-[#ffffff] font-atyp overflow-hidden">
+        <section id="home" className="relative w-full overflow-hidden bg-[#ffffff] font-atyp overflow-hidden">
 
             <div className="relative pb-20 md:pb-28 lg:pb-32">
                 <div
@@ -89,24 +89,23 @@ export default function HeroSection() {
                 <div className="relative z-10 grid grid-cols-1 gap-10 px-6 pb-0 pt-10 md:grid-cols-2 md:px-12 lg:pt-30">
                     <div className="flex flex-col justify-center">
                         <span className="animate__animated animate__fadeInUp mb-6 inline-flex w-fit items-center rounded-full bg-neutral-200/70 px-5 py-2 text-sm text-neutral-700">
-                            Welcome To The Future Of Design &amp; Development
+                            Digital Solutions Built For Innovation
                         </span>
 
                         <h1 className="animate__animated animate__fadeInUp animate__delay-1s text-[44px] font-light leading-[1.08] text-neutral-900 sm:text-[56px] lg:text-[64px]">
-                            Building <span className="font-semibold text-brand">STUNNING WEBSITES</span>{" "}
-                            &amp; Powerful Solutions
+                            We Build <span className="font-semibold text-brand">Digital Destinations</span>{" "}
+                            &amp; that Refuse to Blend In
                         </h1>
 
                         <p className="animate__animated animate__fadeInUp animate__delay-2s mt-6 max-w-lg text-[16px] leading-relaxed text-neutral-500">
-                            We Create Visually Stunning, User-Friendly Websites And Digital Solutions
-                            That Help Businesses Grow And Stand Out Online.
+                            Your digital presence should never feel like a collection of disconnected services. From your website to your marketing, we create a unified ecosystem where every element works together. 
                         </p>
 
                         <div className="animate__animated animate__fadeInUp animate__delay-2s mt-8">
                             <div className="flex flex-wrap items-center gap-6">
                                 <div className="flex items-center gap-2">
                                     <button className="btn-sweep relative overflow-hidden rounded-full bg-cta-gradient px-6 py-3 text-sm font-medium text-white shadow-lg shadow-pink-500/20 transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.03] hover:shadow-lg hover:shadow-pink-500/40">
-                                        <span className="relative z-10">Get In Touch</span>
+                                        <span className="relative z-10">Start Now</span>
                                     </button>
 
                                     <button
@@ -172,10 +171,8 @@ export default function HeroSection() {
 
                     </div>
 
-                    {/* Right visual: static circle + person, floating cards around */}
                     <div className="relative flex min-h-[520px] items-center justify-center md:min-h-[640px] lg:min-h-[720px]">
 
-                        {/* Circle background — static */}
                         <img
                             src="/images/hero/circle.png"
                             alt=""
@@ -183,7 +180,6 @@ export default function HeroSection() {
                             draggable={false}
                         />
 
-                        {/* Person — static, no float */}
                         <img
                             src="/images/hero/person.png"
                             alt="Team member holding a tablet"
@@ -191,7 +187,6 @@ export default function HeroSection() {
                             draggable={false}
                         />
 
-                        {/* Floating card: Web / App Solutions — top left */}
                         <motion.div
                             className="absolute left-0 top-[8%] z-20 w-[46%] max-w-[220px] sm:left-2 md:left-0"
                             initial={{ opacity: 0, y: 20, scale: 0.9 }}
@@ -210,7 +205,6 @@ export default function HeroSection() {
                             />
                         </motion.div>
 
-                        {/* Floating card: 5-Star Rating — top right */}
                         <motion.div
                             className="absolute right-0 top-[4%] z-20 w-[40%] max-w-[190px] sm:right-2 md:right-0"
                             initial={{ opacity: 0, y: 20, scale: 0.9 }}
@@ -229,7 +223,6 @@ export default function HeroSection() {
                             />
                         </motion.div>
 
-                        {/* Floating card: Video Animation — bottom left */}
                         <motion.div
                             className="absolute bottom-[10%] left-0 z-20 w-[42%] max-w-[200px] sm:left-2 md:left-0"
                             initial={{ opacity: 0, y: 20, scale: 0.9 }}
@@ -248,7 +241,6 @@ export default function HeroSection() {
                             />
                         </motion.div>
 
-                        {/* Floating card: Creative Branding — bottom right */}
                         <motion.div
                             className="absolute bottom-[6%] right-0 z-20 w-[42%] max-w-[200px] sm:right-2 md:right-0"
                             initial={{ opacity: 0, y: 20, scale: 0.9 }}
@@ -279,13 +271,12 @@ export default function HeroSection() {
                 <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                     <div className="md:w-[30%]">
                         <h3 className="text-3xl font-light text-brand">
-                            Let&apos;s Start Your Project
+                            Tell us Your Vision Board
                         </h3>
                     </div>
 
                     <p className="text-sm leading-relaxed text-neutral-500 md:w-[65%]">
-                        Share Your Ideas And Requirements With Us, And Our Team Will Help Turn
-                        Your Vision Into A Powerful Digital Solution.
+                        Enter your query below and receive a free consultation tailored to your vision and goals.
                     </p>
                 </div>
 

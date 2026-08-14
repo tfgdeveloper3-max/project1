@@ -1,36 +1,75 @@
-// src/App.tsx
+import HeroSection from './components/Herosection'
+import AboutSection from './components/Aboutsection'
+import ClientsSection from './components/Clientsection'
+import ServicesSection from './components/Servicessection'
+import OurprocesSection from './components/OurprocesSection'
+import PortfolioSection from './components/Portfoliosection'
+import PricingSection from './components/Pricingsection'
+import TestimonialsSection from './components/Testimonialsection'
+import CtaBannerSection from './components/Ctabannersection'
+import ContactSection from './components/Contactsection'
+import BlindsReveal from './components/BlindsReveal'
+import Navbar from './components/Navbar'
+import FooterIntroReveal from './components/FooterIntroReveal'
+import Footersection from './components/Footersection'
+import { ContactModalProvider } from './context/ContactModalContext'
+import ContactModal from './components/ContactModal'
+import { LiveChatWidget } from "@livechat/widget-react";
+import { useEffect } from 'react'
 
-import { Suspense } from "react";
-import { Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import Services from "./pages/Services";
-import Navbar from "./components/Navbar";
-import Footersection from "./components/Footersection";
-import { innerServiceRoutes } from "./routes/innerServiceRoutes";
-import FooterIntroReveal from "./components/FooterIntroReveal";
+export default function App() {
 
-function App() {
+  useEffect(() => {
+    const openChat = () => {
+      const livechat = (window as any).LiveChatWidget;
+
+      if (livechat) {
+        setTimeout(() => {
+          livechat.call("maximize");
+        }, 1000);
+        livechat.on("new_event", (event: any) => {
+          if (
+            ["message", "rich_message", "file"].includes(event.type) &&
+            event.author?.type !== "customer"
+          ) {
+            livechat.call("maximize");
+          }
+        });
+      }
+    };
+
+    if ((window as any).LiveChatWidget) {
+      openChat();
+    }
+
+    (window as any).__lc = (window as any).__lc || {};
+    (window as any).__lc.asyncInit = () => {
+      openChat();
+    };
+  }, []);
+
   return (
     <>
-      <Navbar />
-      <Suspense fallback={<div className="py-40 text-center text-neutral-400">Loading...</div>}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/services" element={<Services />} />
+      <LiveChatWidget license="19067595" />
 
-          {innerServiceRoutes.map(({ slug, component: Component }) => (
-            <Route
-              key={slug}
-              path={`/services/${slug}`}
-              element={<Component />}
-            />
-          ))}
-        </Routes>
-      </Suspense>
-      <FooterIntroReveal />
-      <Footersection />
+      <ContactModalProvider>
+        <Navbar />
+        <HeroSection />
+        <BlindsReveal>
+          <AboutSection />
+        </BlindsReveal>
+        <ClientsSection />
+        <ServicesSection />
+        <OurprocesSection />
+        <PortfolioSection />
+        <PricingSection />
+        <TestimonialsSection />
+        <CtaBannerSection />
+        <ContactSection />
+        <FooterIntroReveal />
+        <Footersection />
+        <ContactModal />
+      </ContactModalProvider>
     </>
-  );
+  )
 }
-
-export default App;
